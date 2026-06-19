@@ -1,0 +1,71 @@
+name: BandiRadar — Aggiornamento Settimanale
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installa dipendenze
+        run: pip install openpyxl httpx beautifulsoup4 lxml
+
+      - name: Aggiorna bandi e genera Excel + JSON
+        run: python aggiorna_bandi.py
+
+      - name: Invia email di riepilogo
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python notify.py
+
+      - name: Prepara GitHub Pages
+        run: |
+          mkdir -p docs
+          cp web/index.html docs/index.html
+          cp output/BandiRadar.xlsx docs/BandiRadar.xlsx
+          cp output/bandi.json docs/bandi.json
+
+      - name: Commit
+        run: |
+          git config user.name "BandiRadar Bot"
+          git config user.email "bot@bandiradar.ai"
+          git add output/ docs/
+          git diff --staged --quiet || git commit -m "Aggiornamento $(date +'%d/%m/%Y')"
+          git push
+
+  deploy-pages:
+    needs: aggiorna
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+      - uses: actions/deploy-pages@v4
+        id: deployment
