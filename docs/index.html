@@ -225,20 +225,19 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
+      gap: 12px;
     }
 
     /* ── Card ────────────────────────────────────────────── */
     .card {
       background: var(--black-2);
-      padding: 20px;
+      border: 1px solid var(--line-2);
+      border-left: 3px solid transparent;
+      padding: 22px 22px 18px;
       position: relative;
-      transition: background 0.15s;
-      border-left: 2px solid transparent;
+      transition: background 0.15s, border-color 0.15s;
     }
-    .card:hover { background: var(--black-3); }
+    .card:hover { background: var(--black-3); border-color: var(--line-3); }
     .card.aperto  { border-left-color: var(--accent); }
     .card.scadenza { border-left-color: var(--warning); }
     .card.chiuso  { border-left-color: var(--line-3); opacity: 0.55; }
