@@ -4,71 +4,346 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BandiRadar — Monitor Bandi & Contributi PMI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1c35; color: #fff; min-height: 100vh; }
+    /* ── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    header { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { display: flex; align-items: center; gap: 12px; }
-    .logo-icon { width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg,#f59e0b,#ef4444); display: flex; align-items: center; justify-content: center; font-size: 22px; }
-    .logo-text h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
-    .logo-text p { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+    /* ── Design tokens (Sinerbit Accessi) ──────────────── */
+    :root {
+      --black:   #030303;
+      --black-2: #0a0a0a;
+      --black-3: #111111;
+      --black-4: #1a1a1a;
+      --line:    #1f1f1f;
+      --line-2:  #2a2a2a;
+      --line-3:  #3a3a3a;
+      --fg:      #f5f5f4;
+      --fg-2:    #c8c6c2;
+      --fg-3:    #8a8884;
+      --muted:   #585652;
+      --accent:  #d4ff3f;
+      --accent-soft: rgba(212,255,63,0.08);
+      --danger:  #ff5544;
+      --warning: #ffb74d;
+      --display: 'Space Grotesk', system-ui, sans-serif;
+      --body:    'Space Grotesk', system-ui, sans-serif;
+      --mono:    'JetBrains Mono', ui-monospace, monospace;
+    }
 
-    .download-btn { background: linear-gradient(135deg,#f59e0b,#ef4444); border: none; border-radius: 10px; padding: 10px 22px; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-    .download-btn:hover { opacity: 0.9; }
+    html, body {
+      background: var(--black);
+      color: var(--fg);
+      font-family: var(--body);
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
 
-    main { max-width: 1100px; margin: 0 auto; padding: 28px 22px; }
+    /* grana di sfondo */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    #update-bar { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 10px 18px; margin-bottom: 22px; font-size: 13px; color: #6ee7b7; display: flex; align-items: center; gap: 10px; }
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--line);
+      background: rgba(3,3,3,0.92);
+      backdrop-filter: blur(16px);
+      padding: 0 28px;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
 
-    .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 26px; }
-    .stat-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 18px 20px; }
-    .stat-value { font-size: 30px; font-weight: 800; font-family: monospace; }
-    .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .logo {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      font-weight: 600; font-size: 12px;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    .logo-name {
+      font-family: var(--display);
+      font-weight: 700; font-size: 16px;
+      letter-spacing: -0.3px;
+      color: var(--fg);
+    }
+    .logo-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-left: 1px solid var(--line-2);
+      padding-left: 12px;
+      margin-left: 4px;
+    }
 
-    #urgency { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 14px 18px; margin-bottom: 22px; display: none; }
-    #urgency h3 { color: #fbbf24; font-size: 14px; margin-bottom: 8px; }
-    .urgency-item { color: rgba(255,255,255,0.75); font-size: 13px; padding: 3px 0; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
 
-    .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
-    .filters select, .filters input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 13px; outline: none; }
-    .filters input { flex: 1 1 200px; }
-    .filters select { flex: 1 1 160px; }
-    select option { background: #1e3a5f; }
+    .btn-dl {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: var(--black);
+      font-family: var(--mono);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-dl:hover { opacity: 0.88; }
 
-    #count { color: rgba(255,255,255,0.4); font-size: 13px; align-self: center; white-space: nowrap; }
+    /* ── Update bar ──────────────────────────────────────── */
+    #update-bar {
+      border-bottom: 1px solid var(--line);
+      padding: 8px 28px;
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: 11px;
+      color: var(--fg-3); letter-spacing: 0.04em;
+      position: relative; z-index: 1;
+    }
+    #update-bar .dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 14px; }
-    .card { background: #fff; border-radius: 12px; padding: 18px 20px; color: #1a1a2e; border-left: 4px solid #10b981; position: relative; transition: box-shadow 0.2s, transform 0.2s; }
-    .card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.12); transform: translateY(-2px); }
-    .card.in-scadenza { border-left-color: #f59e0b; }
-    .card.chiuso { border-left-color: #ef4444; opacity: 0.6; }
-    .card.verified::after { content: "✓ VERIF."; position: absolute; top: 10px; right: 12px; font-size: 9px; color: #059669; background: #d1fae5; padding: 2px 6px; border-radius: 99px; font-weight: 700; }
-    .card.auto::after { content: "AUTO"; position: absolute; top: 10px; right: 12px; font-size: 9px; color: #5b21b6; background: #ede9fe; padding: 2px 6px; border-radius: 99px; font-weight: 700; }
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-top: 14px; }
-    .card-title { font-size: 14px; font-weight: 700; color: #111827; flex: 1; }
-    .card-amount { font-size: 13px; font-weight: 800; color: #1e3a5f; font-family: monospace; text-align: right; min-width: 110px; }
-    .card-intensity { font-size: 11px; color: #6b7280; text-align: right; }
-    .card-ente { font-size: 12px; color: #6b7280; margin: 4px 0 8px; }
-    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-    .badge-aperto { background: #d1fae5; color: #065f46; }
-    .badge-in-scadenza { background: #fef3c7; color: #92400e; }
-    .badge-chiuso { background: #fee2e2; color: #991b1b; }
-    .badge-region { background: #f3f4f6; color: #6b7280; font-weight: 400; text-transform: none; font-size: 10px; }
-    .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-    .scadenza { font-size: 12px; color: #6b7280; }
-    .scadenza.urgente { color: #ef4444; font-weight: 700; }
-    .card-link { font-size: 12px; color: #2563eb; text-decoration: none; font-weight: 600; }
+    /* ── Main ────────────────────────────────────────────── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 28px 60px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── Stats ───────────────────────────────────────────── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      border: 1px solid var(--line);
+      margin-bottom: 24px;
+    }
+    .stat {
+      padding: 20px 22px;
+      border-right: 1px solid var(--line);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-value {
+      font-family: var(--mono);
+      font-size: 32px; font-weight: 600;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 10px; font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* ── Urgency bar ─────────────────────────────────────── */
+    #urgency {
+      border: 1px solid var(--warning);
+      background: rgba(255,183,77,0.04);
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    #urgency-title {
+      font-family: var(--mono);
+      font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--warning);
+      margin-bottom: 8px;
+    }
+    .urgency-item {
+      font-size: 13px; color: var(--fg-2);
+      padding: 3px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .urgency-item:last-child { border-bottom: none; }
+    .urgency-days {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--warning); font-weight: 600;
+    }
+
+    /* ── Filters ─────────────────────────────────────────── */
+    .filters {
+      display: flex; gap: 1px;
+      margin-bottom: 1px;
+      border: 1px solid var(--line);
+      border-bottom: none;
+    }
+    .filters input,
+    .filters select {
+      flex: 1;
+      background: var(--black-3);
+      border: none;
+      border-right: 1px solid var(--line);
+      padding: 10px 14px;
+      color: var(--fg);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      outline: none;
+      appearance: none;
+    }
+    .filters input:focus,
+    .filters select:focus { background: var(--black-4); }
+    .filters input::placeholder { color: var(--muted); }
+    .filters select:last-of-type { border-right: none; }
+    #count {
+      display: flex; align-items: center;
+      padding: 0 16px;
+      font-family: var(--mono); font-size: 10px;
+      color: var(--muted); white-space: nowrap;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    select option { background: #111; }
+
+    /* ── Grid ────────────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    /* ── Card ────────────────────────────────────────────── */
+    .card {
+      background: var(--black-2);
+      padding: 20px;
+      position: relative;
+      transition: background 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .card:hover { background: var(--black-3); }
+    .card.aperto  { border-left-color: var(--accent); }
+    .card.scadenza { border-left-color: var(--warning); }
+    .card.chiuso  { border-left-color: var(--line-3); opacity: 0.55; }
+
+    .card-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 12px;
+    }
+    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 9px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 3px 7px;
+      border: 1px solid;
+    }
+    .badge-aperto  { color: var(--accent);  border-color: rgba(212,255,63,0.3);  background: rgba(212,255,63,0.06); }
+    .badge-scadenza { color: var(--warning); border-color: rgba(255,183,77,0.3);  background: rgba(255,183,77,0.06); }
+    .badge-chiuso  { color: var(--muted);   border-color: var(--line-2);           background: transparent; }
+    .badge-region  { color: var(--fg-3);    border-color: var(--line-2);           background: transparent; font-weight: 400; }
+
+    .card-source {
+      font-family: var(--mono);
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .card-source.ok   { color: var(--accent); }
+    .card-source.auto { color: var(--muted); }
+
+    .card-title {
+      font-family: var(--display);
+      font-size: 14px; font-weight: 600;
+      color: var(--fg); line-height: 1.4;
+      margin-bottom: 3px;
+    }
+    .card-ente {
+      font-size: 12px; color: var(--fg-3);
+      margin-bottom: 14px;
+    }
+
+    .card-amount {
+      font-family: var(--mono);
+      font-size: 15px; font-weight: 600;
+      color: var(--fg); letter-spacing: -0.3px;
+      margin-bottom: 2px;
+    }
+    .card-intensity {
+      font-family: var(--mono);
+      font-size: 10px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    .card-footer {
+      display: flex; justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .card-scadenza {
+      font-family: var(--mono);
+      font-size: 11px; color: var(--fg-3);
+    }
+    .card-scadenza.urgente { color: var(--warning); font-weight: 600; }
+    .card-link {
+      font-family: var(--mono);
+      font-size: 10px; font-weight: 600;
+      color: var(--accent);
+      text-decoration: none; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
     .card-link:hover { text-decoration: underline; }
 
-    #loading { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.4); }
-    footer { text-align: center; color: rgba(255,255,255,0.18); font-size: 11px; margin-top: 32px; padding-bottom: 24px; }
+    /* ── Loading ─────────────────────────────────────────── */
+    #loading {
+      padding: 60px 20px; text-align: center;
+      font-family: var(--mono); font-size: 12px;
+      color: var(--muted); letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
 
-    @media (max-width: 600px) {
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      font-family: var(--mono); font-size: 10px;
+      color: var(--muted); letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 40px;
+      padding-bottom: 24px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 720px) {
+      header { padding: 0 16px; }
+      .logo-tag { display: none; }
+      main { padding: 16px 16px 48px; }
       .stats { grid-template-columns: repeat(2,1fr); }
+      .stat { padding: 16px; }
       .grid { grid-template-columns: 1fr; }
-      header { flex-direction: column; gap: 14px; }
+      .filters { flex-wrap: wrap; }
+      .filters input,
+      .filters select { flex: 1 1 160px; border-right: none; border-bottom: 1px solid var(--line); }
+      #count { padding: 8px 14px; border-top: 1px solid var(--line); width: 100%; }
     }
   </style>
 </head>
@@ -76,171 +351,194 @@
 
 <header>
   <div class="logo">
-    <div class="logo-icon">📋</div>
-    <div class="logo-text">
-      <h1>BandiRadar</h1>
-      <p>Monitor Bandi & Contributi PMI — Aggiornamento automatico settimanale</p>
-    </div>
+    <div class="logo-mark">BR</div>
+    <span class="logo-name">BandiRadar</span>
+    <span class="logo-tag">Monitor Bandi & Contributi PMI</span>
   </div>
-  <a href="BandiRadar.xlsx" download class="download-btn">
-    📥 Scarica Excel
-  </a>
+  <div class="header-right">
+    <a href="BandiRadar.xlsx" download class="btn-dl">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M6 1v7M3 5l3 3 3-3M1 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Scarica Excel
+    </a>
+  </div>
 </header>
 
-<main>
-  <div id="update-bar">✅ <span id="update-text">Caricamento dati...</span></div>
+<div id="update-bar">
+  <div class="dot"></div>
+  <span id="update-text">Caricamento...</span>
+</div>
 
+<main>
+  <!-- Stats -->
   <div class="stats">
-    <div class="stat-card"><div class="stat-value" id="s-tot" style="color:#60a5fa">—</div><div class="stat-label">Bandi totali</div></div>
-    <div class="stat-card"><div class="stat-value" id="s-ap" style="color:#34d399">—</div><div class="stat-label">Aperti</div></div>
-    <div class="stat-card"><div class="stat-value" id="s-ins" style="color:#fbbf24">—</div><div class="stat-label">In scadenza</div></div>
-    <div class="stat-card"><div class="stat-value" id="s-ver" style="color:#a78bfa">—</div><div class="stat-label">Verificati</div></div>
+    <div class="stat">
+      <div class="stat-value" id="s-tot" style="color:var(--fg)">—</div>
+      <div class="stat-label">Bandi totali</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="s-ap" style="color:var(--accent)">—</div>
+      <div class="stat-label">Aperti</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="s-ins" style="color:var(--warning)">—</div>
+      <div class="stat-label">In scadenza</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="s-ver" style="color:var(--fg-3)">—</div>
+      <div class="stat-label">Verificati</div>
+    </div>
   </div>
 
-  <div id="urgency"><h3>⚠️ Bandi in scadenza entro 30 giorni</h3><div id="urgency-list"></div></div>
+  <!-- Urgency -->
+  <div id="urgency">
+    <div id="urgency-title">⚠ Bandi in scadenza entro 30 giorni</div>
+    <div id="urgency-list"></div>
+  </div>
 
+  <!-- Filters -->
   <div class="filters">
-    <input type="text" id="search" placeholder="🔍 Cerca bando, ente...">
+    <input type="text" id="search" placeholder="/ cerca bando, ente...">
     <select id="filter-stato">
-      <option value="">Tutti gli stati</option>
+      <option value="">— stato —</option>
       <option value="APERTO">Aperto</option>
       <option value="IN SCADENZA">In scadenza</option>
       <option value="CHIUSO">Chiuso</option>
     </select>
-    <select id="filter-regione">
-      <option value="">Tutte le regioni</option>
-    </select>
-    <select id="filter-settore">
-      <option value="">Tutti i settori</option>
-    </select>
-    <span id="count"></span>
+    <select id="filter-regione"><option value="">— regione —</option></select>
+    <select id="filter-settore"><option value="">— settore —</option></select>
+    <span id="count">—</span>
   </div>
 
+  <!-- Grid -->
   <div id="loading">Caricamento bandi in corso...</div>
-  <div class="grid" id="grid"></div>
+  <div class="grid" id="grid" style="display:none"></div>
 </main>
 
-<footer>BandiRadar · Aggiornamento automatico ogni lunedì · Fonti: Regione Toscana, Regione Lombardia, MIMIT, SIMEST, CCIAA, EUIPO</footer>
+<footer>
+  BandiRadar &nbsp;·&nbsp; Aggiornamento automatico ogni lunedì &nbsp;·&nbsp;
+  Fonti: Regione Toscana · Regione Lombardia · MIMIT · SIMEST · CCIAA · EUIPO
+</footer>
 
 <script>
 const ICONS = {
   "Digitalizzazione / Transizione 4.0": "⚡",
-  "Innovazione / R&S": "🔬",
-  "E-commerce & Export": "🌍",
-  "Cybersecurity": "🛡️",
-  "Formazione 4.0": "🎓",
-  "Voucher Consulenza / Brand / UI-UX": "🎨",
+  "Innovazione / R&S": "◈",
+  "E-commerce & Export": "◎",
+  "Cybersecurity": "▣",
+  "Formazione 4.0": "◇",
+  "Voucher Consulenza / Brand / UI-UX": "◰",
 };
 
 let allBandi = [];
 
-function daysLeft(scadenza) {
+function daysLeft(sc) {
   const today = new Date(); today.setHours(0,0,0,0);
-  return Math.ceil((new Date(scadenza) - today) / 86400000);
+  return Math.ceil((new Date(sc) - today) / 86400000);
 }
-
-function formatDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString("it-IT");
+function fmtDate(iso) {
+  try { return new Date(iso).toLocaleDateString("it-IT"); }
+  catch { return iso; }
 }
 
 function renderCard(b) {
   const dl = daysLeft(b.scadenza);
-  const statusClass = b.status === "IN SCADENZA" ? "in-scadenza" : b.status === "CHIUSO" ? "chiuso" : "";
-  const badgeClass = b.status === "IN SCADENZA" ? "badge-in-scadenza" : b.status === "CHIUSO" ? "badge-chiuso" : "badge-aperto";
-  const scadenzaClass = dl >= 0 && dl <= 30 ? "urgente" : "";
-  const sourceClass = b.fonte === "VERIFICATO" ? "verified" : "auto";
-  const icon = ICONS[b.settore] || "📋";
+  const isUrgent = dl >= 0 && dl <= 30;
+  const cls = b.status === "IN SCADENZA" || isUrgent ? "scadenza"
+            : b.status === "CHIUSO" ? "chiuso" : "aperto";
+  const badgeCls = cls === "scadenza" ? "badge-scadenza"
+                 : cls === "chiuso"   ? "badge-chiuso" : "badge-aperto";
+  const badgeLbl = cls === "scadenza" ? "IN SCADENZA"
+                 : cls === "chiuso"   ? "CHIUSO" : "APERTO";
+  const icon = ICONS[b.settore] || "·";
+  const srcCls = b.fonte === "VERIFICATO" ? "ok" : "auto";
+  const srcLbl = b.fonte === "VERIFICATO" ? "VERIF." : "AUTO";
 
-  return `
-    <div class="card ${statusClass} ${sourceClass}">
+  return `<div class="card ${cls}">
+    <div class="card-top">
       <div class="card-tags">
-        <span class="badge ${badgeClass}"><span>●</span> ${b.status}</span>
+        <span class="badge ${badgeCls}">${badgeLbl}</span>
         <span class="badge badge-region">${b.regione}</span>
       </div>
-      <div class="card-header">
-        <div>
-          <div style="font-size:18px;margin-bottom:4px">${icon}</div>
-          <div class="card-title">${b.titolo}</div>
-          <div class="card-ente">${b.ente}</div>
-        </div>
-        <div>
-          <div class="card-amount">${b.contributo}</div>
-          <div class="card-intensity">${b.intensita}</div>
-        </div>
+      <span class="card-source ${srcCls}">${srcLbl}</span>
+    </div>
+    <div style="font-size:18px;margin-bottom:8px;color:var(--fg-3)">${icon}</div>
+    <div class="card-title">${b.titolo}</div>
+    <div class="card-ente">${b.ente}</div>
+    <div class="card-amount">${b.contributo}</div>
+    <div class="card-intensity">${b.intensita}</div>
+    <div class="card-footer">
+      <div class="card-scadenza ${isUrgent ? 'urgente' : ''}">
+        ${fmtDate(b.scadenza)}${dl >= 0 ? ' · ' + dl + 'gg' : ' · SCAD.'}
       </div>
-      <div class="card-footer">
-        <div class="scadenza ${scadenzaClass}">
-          📅 Scade: ${formatDate(b.scadenza)}${dl >= 0 ? ` (${dl}gg)` : " (SCADUTO)"}
-        </div>
-        ${b.link ? `<a href="${b.link}" target="_blank" rel="noreferrer" class="card-link">Bando →</a>` : ""}
-      </div>
-    </div>`;
-}
-
-function populate(regioni, settori) {
-  const rSel = document.getElementById("filter-regione");
-  const sSel = document.getElementById("filter-settore");
-  [...regioni].sort().forEach(r => rSel.innerHTML += `<option value="${r}">${r}</option>`);
-  [...settori].sort().forEach(s => sSel.innerHTML += `<option value="${s}">${s}</option>`);
+      ${b.link ? `<a href="${b.link}" target="_blank" rel="noreferrer" class="card-link">Bando →</a>` : ''}
+    </div>
+  </div>`;
 }
 
 function render() {
-  const q = document.getElementById("search").value.toLowerCase();
-  const stato = document.getElementById("filter-stato").value;
-  const regione = document.getElementById("filter-regione").value;
-  const settore = document.getElementById("filter-settore").value;
-
-  const filtered = allBandi.filter(b => {
-    if (stato && b.status !== stato) return false;
-    if (regione && b.regione !== regione) return false;
-    if (settore && b.settore !== settore) return false;
-    if (q && !b.titolo.toLowerCase().includes(q) && !b.ente.toLowerCase().includes(q)) return false;
-    return true;
-  });
-
-  document.getElementById("count").textContent = filtered.length + " risultati";
-  document.getElementById("grid").innerHTML = filtered.map(renderCard).join("") || `
-    <div style="grid-column:1/-1;text-align:center;color:rgba(255,255,255,0.4);padding:40px">
-      Nessun bando trovato con i filtri selezionati.
-    </div>`;
+  const q  = document.getElementById("search").value.toLowerCase();
+  const st = document.getElementById("filter-stato").value;
+  const re = document.getElementById("filter-regione").value;
+  const se = document.getElementById("filter-settore").value;
+  const f  = allBandi.filter(b =>
+    (!st || b.status === st) &&
+    (!re || b.regione === re) &&
+    (!se || b.settore === se) &&
+    (!q  || b.titolo.toLowerCase().includes(q) || b.ente.toLowerCase().includes(q))
+  );
+  document.getElementById("count").textContent = f.length + " risultati";
+  const grid = document.getElementById("grid");
+  grid.innerHTML = f.length
+    ? f.map(renderCard).join("")
+    : `<div style="padding:48px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Nessun bando trovato</div>`;
 }
 
 async function init() {
   try {
-    const res = await fetch("bandi.json?t=" + Date.now());
+    const res  = await fetch("bandi.json?t=" + Date.now());
     const data = await res.json();
-    allBandi = data.bandi || [];
+    allBandi   = data.bandi || [];
 
+    const upd = new Date(data.aggiornato).toLocaleDateString("it-IT");
     document.getElementById("update-text").textContent =
-      `Dataset verificato — Aggiornato: ${new Date(data.aggiornato).toLocaleDateString("it-IT")} | ${data.totale} bandi totali`;
+      `Aggiornato ${upd}  ·  ${data.totale} bandi  ·  ${data.verificati} verificati  ·  aggiornamento automatico ogni lunedì`;
+
     document.getElementById("s-tot").textContent = data.totale;
-    document.getElementById("s-ap").textContent = data.aperti;
+    document.getElementById("s-ap").textContent  = data.aperti;
     document.getElementById("s-ins").textContent = data.in_scadenza;
     document.getElementById("s-ver").textContent = data.verificati;
 
-    // Urgenti
+    // Urgency
     const urgenti = allBandi.filter(b => daysLeft(b.scadenza) >= 0 && daysLeft(b.scadenza) <= 30);
-    if (urgenti.length > 0) {
+    if (urgenti.length) {
       document.getElementById("urgency").style.display = "block";
       document.getElementById("urgency-list").innerHTML = urgenti
-        .map(b => `<div class="urgency-item">• ${b.titolo} — scade ${formatDate(b.scadenza)} (${daysLeft(b.scadenza)} giorni)</div>`)
-        .join("");
+        .sort((a,b) => daysLeft(a.scadenza) - daysLeft(b.scadenza))
+        .map(b => `<div class="urgency-item">
+          ${b.titolo} &nbsp;<span class="urgency-days">${daysLeft(b.scadenza)}gg — scade ${fmtDate(b.scadenza)}</span>
+        </div>`).join("");
     }
 
-    const regioni = new Set(allBandi.map(b => b.regione));
-    const settori = new Set(allBandi.map(b => b.settore));
-    populate(regioni, settori);
+    // Populate filters
+    const rSel = document.getElementById("filter-regione");
+    const sSel = document.getElementById("filter-settore");
+    [...new Set(allBandi.map(b => b.regione))].sort().forEach(r =>
+      rSel.innerHTML += `<option value="${r}">${r}</option>`);
+    [...new Set(allBandi.map(b => b.settore))].sort().forEach(s =>
+      sSel.innerHTML += `<option value="${s}">${s}</option>`);
 
     document.getElementById("loading").style.display = "none";
+    document.getElementById("grid").style.display = "grid";
+
     ["search","filter-stato","filter-regione","filter-settore"].forEach(id =>
       document.getElementById(id).addEventListener("input", render));
     render();
 
   } catch(e) {
     document.getElementById("loading").innerHTML =
-      '<span style="color:#f87171">Errore caricamento dati. Riprova tra poco.</span>';
-    console.error(e);
+      '<span style="color:var(--danger)">Errore caricamento. Riprova.</span>';
   }
 }
 
