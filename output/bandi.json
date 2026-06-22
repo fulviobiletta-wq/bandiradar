@@ -1,7 +1,7 @@
 {
-  "aggiornato": "2026-06-19",
-  "totale": 17,
-  "aperti": 16,
+  "aggiornato": "2026-06-22",
+  "totale": 18,
+  "aperti": 17,
   "in_scadenza": 1,
   "verificati": 14,
   "bandi": [
@@ -239,6 +239,20 @@
       "scadenza": "2026-12-31",
       "descrizione": "Ricerca e Innovazione",
       "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/ricerca-innovazione",
+      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
+      "fonte": "AUTO",
+      "status": "APERTO"
+    },
+    {
+      "titolo": "Interventi speciali a favore della montagna di cui alla DGR 7391/2022",
+      "ente": "Regione Lombardia Bandi",
+      "regione": "Regione Lombardia",
+      "settore": "Digitalizzazione / Transizione 4.0",
+      "contributo": "Vedere bando",
+      "intensita": "Vedere bando",
+      "scadenza": "2026-12-31",
+      "descrizione": "Interventi speciali a favore della montagna di cui alla DGR 7391/2022",
+      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/ambiente-territorio/montagna/interventi-speciali-favore-montagna-cui-dgr-7391-2022-RLV12026053683",
       "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
       "fonte": "AUTO",
       "status": "APERTO"
