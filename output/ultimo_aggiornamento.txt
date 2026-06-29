@@ -1,9 +1,9 @@
-Ultimo aggiornamento: 22/06/2026 12:53
-Bandi totali: 18
+Ultimo aggiornamento: 29/06/2026 12:03
+Bandi totali: 19
 Verificati manualmente: 14
-Trovati automaticamente: 4
-Aperti: 17
+Trovati automaticamente: 5
+Aperti: 18
 In scadenza (<=30gg): 1
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
-  - Rafforza & Innova 2025 (scade 2026-06-30, 8gg)
+  - Rafforza & Innova 2025 (scade 2026-06-30, 1gg)

@@ -1,7 +1,7 @@
 {
-  "aggiornato": "2026-06-22",
-  "totale": 18,
-  "aperti": 17,
+  "aggiornato": "2026-06-29",
+  "totale": 19,
+  "aperti": 18,
   "in_scadenza": 1,
   "verificati": 14,
   "bandi": [
@@ -199,6 +199,20 @@
       "link": "https://www.mimit.gov.it/it/incentivi/agevolazioni-per-gli-investimenti-delle-pmi-in-beni-strumentali-nuova-sabatini",
       "note": "Rifinanziata con 650M euro per 2026-2027. Sportello continuo.",
       "fonte": "VERIFICATO",
+      "status": "APERTO"
+    },
+    {
+      "titolo": "Contributo integrativo Regionale sulla spesa assicurativa agevolata “Sma...",
+      "ente": "Regione Lombardia Bandi",
+      "regione": "Regione Lombardia",
+      "settore": "Digitalizzazione / Transizione 4.0",
+      "contributo": "Vedere bando",
+      "intensita": "Vedere bando",
+      "scadenza": "2026-09-30",
+      "descrizione": "Contributo integrativo Regionale sulla spesa assicurativa agevolata “Sma...",
+      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/agricoltura-pesca/calamita-assicurazioni-servizi-sostituzione/contributo-integrativo-regionale-spesa-assicurativa-agevolata-smaltimento-carcasse-animali-morti-riferito-attivit-assicurativa-svolta-anno-2025-RLM12026054204",
+      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
+      "fonte": "AUTO",
       "status": "APERTO"
     },
     {
