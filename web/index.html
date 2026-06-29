@@ -3,544 +3,371 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BandiRadar — Monitor Bandi & Contributi PMI</title>
+  <title>BandiRadar — Sinerbit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* ── Reset ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    /* ── Design tokens (Sinerbit Accessi) ──────────────── */
     :root {
-      --black:   #030303;
-      --black-2: #0a0a0a;
-      --black-3: #111111;
-      --black-4: #1a1a1a;
-      --line:    #1f1f1f;
-      --line-2:  #2a2a2a;
-      --line-3:  #3a3a3a;
-      --fg:      #f5f5f4;
-      --fg-2:    #c8c6c2;
-      --fg-3:    #8a8884;
-      --muted:   #585652;
-      --accent:  #d4ff3f;
-      --accent-soft: rgba(212,255,63,0.08);
-      --danger:  #ff5544;
-      --warning: #ffb74d;
-      --display: 'Space Grotesk', system-ui, sans-serif;
-      --body:    'Space Grotesk', system-ui, sans-serif;
-      --mono:    'JetBrains Mono', ui-monospace, monospace;
+      --bg:#f4f4f0; --white:#ffffff; --black:#111111;
+      --text:#1a1a1a; --text-2:#4b5563; --text-3:#9ca3af;
+      --border:#e5e5e0; --border-2:#d1d1cc;
+      --green:#16a34a; --green-bg:#dcfce7;
+      --orange:#ea580c; --orange-bg:#ffedd5;
+      --red:#dc2626; --red-bg:#fee2e2;
+      --blue:#2563eb; --blue-bg:#dbeafe;
+      --radius:10px;
     }
+    body { font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var(--text); font-size:14px; -webkit-font-smoothing:antialiased; min-height:100vh; }
 
-    html, body {
-      background: var(--black);
-      color: var(--fg);
-      font-family: var(--body);
-      font-size: 14px;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
+    /* Topbar */
+    .topbar { background:var(--white); border-bottom:1px solid var(--border); padding:0 32px; height:52px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+    .logo { display:flex; align-items:center; text-decoration:none; }
+    
+    .topbar-actions { display:flex; align-items:center; gap:10px; }
+    .btn-primary { display:inline-flex; align-items:center; gap:7px; padding:8px 16px; background:var(--text); color:#fff; border:none; border-radius:99px; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; text-decoration:none; transition:opacity 0.15s; }
+    .btn-primary:hover { opacity:0.85; }
+    .btn-icon { width:36px; height:36px; border-radius:50%; background:#ff5533; color:white; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; transition:opacity 0.15s; text-decoration:none; }
+    .btn-icon:hover { opacity:0.85; }
 
-    /* grana di sfondo */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
+    /* Page */
+    .page { max-width:1240px; margin:0 auto; padding:32px 32px 80px; }
+    .breadcrumb { font-size:11px; font-weight:600; color:var(--text-3); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; }
+    .breadcrumb span { color:var(--orange); }
+    .page-title { font-size:36px; font-weight:800; letter-spacing:-1px; margin-bottom:28px; }
 
-    /* ── Header ─────────────────────────────────────────── */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      border-bottom: 1px solid var(--line);
-      background: rgba(3,3,3,0.92);
-      backdrop-filter: blur(16px);
-      padding: 0 28px;
-      height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    /* Stats */
+    .stats-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:22px 28px; display:grid; grid-template-columns:repeat(4,1fr); margin-bottom:20px; }
+    .stat { display:flex; align-items:center; gap:14px; padding:0 20px; border-right:1px solid var(--border); }
+    .stat:first-child { padding-left:0; }
+    .stat:last-child { border-right:none; }
+    .stat-icon { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .stat-icon.green  { background:var(--green-bg);  color:var(--green); }
+    .stat-icon.orange { background:var(--orange-bg); color:var(--orange); }
+    .stat-icon.red    { background:var(--red-bg);    color:var(--red); }
+    .stat-icon.blue   { background:var(--blue-bg);   color:var(--blue); }
+    .stat-value { font-size:28px; font-weight:800; letter-spacing:-1px; line-height:1; }
+    .stat-label { font-size:12px; color:var(--text-2); margin-top:3px; }
 
-    .logo {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .logo-mark {
-      width: 32px; height: 32px;
-      background: var(--accent);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono);
-      font-weight: 600; font-size: 12px;
-      color: var(--black);
-      letter-spacing: -0.5px;
-    }
-    .logo-name {
-      font-family: var(--display);
-      font-weight: 700; font-size: 16px;
-      letter-spacing: -0.3px;
-      color: var(--fg);
-    }
-    .logo-tag {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border-left: 1px solid var(--line-2);
-      padding-left: 12px;
-      margin-left: 4px;
-    }
+    /* Filter bar */
+    .filter-bar { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; margin-bottom:20px; }
+    .filter-row-1 { display:flex; gap:12px; align-items:flex-end; margin-bottom:14px; }
+    .filter-group { display:flex; flex-direction:column; gap:4px; flex:1; }
+    .filter-group label { font-size:11px; font-weight:600; color:var(--text-3); text-transform:uppercase; letter-spacing:0.06em; }
+    .filter-select { border:1px solid var(--border-2); border-radius:7px; padding:9px 30px 9px 12px; font-family:inherit; font-size:13px; color:var(--text); background:var(--white); outline:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; cursor:pointer; }
+    .filter-search { flex:2; border:1px solid var(--border-2); border-radius:7px; padding:9px 14px; font-family:inherit; font-size:13px; color:var(--text); background:var(--white); outline:none; }
+    .filter-search::placeholder { color:var(--text-3); }
+    .btn-filter { background:var(--text); color:white; border:none; border-radius:7px; padding:9px 18px; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; white-space:nowrap; transition:opacity 0.15s; }
+    .btn-filter:hover { opacity:0.85; }
+    .filter-row-2 { display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border); padding-top:12px; }
+    .tabs { display:flex; gap:6px; }
+    .tab { padding:6px 16px; border-radius:99px; border:none; font-family:inherit; font-size:13px; font-weight:500; cursor:pointer; display:flex; align-items:center; gap:6px; background:transparent; color:var(--text-2); transition:all 0.15s; }
+    .tab.active { background:var(--text); color:white; font-weight:600; }
+    .tab-dot { width:7px; height:7px; border-radius:50%; }
+    .tab-dot.green  { background:var(--green); }
+    .tab-dot.orange { background:var(--orange); }
+    .tab-dot.red    { background:var(--red); }
+    .filter-right { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-2); }
+    .filter-count { font-weight:700; color:var(--text); }
+    .sort-select { border:1px solid var(--border-2); border-radius:7px; padding:6px 28px 6px 10px; font-family:inherit; font-size:13px; color:var(--text); background:var(--white); outline:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 8px center; cursor:pointer; }
 
-    .header-right { display: flex; align-items: center; gap: 10px; }
+    /* Section */
+    .section-title { font-size:22px; font-weight:700; margin-bottom:16px; letter-spacing:-0.3px; }
 
-    .btn-dl {
-      display: flex; align-items: center; gap: 7px;
-      padding: 8px 16px;
-      background: var(--accent);
-      color: var(--black);
-      font-family: var(--mono);
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: none; cursor: pointer;
-      transition: opacity 0.15s;
-    }
-    .btn-dl:hover { opacity: 0.88; }
+    /* Grid */
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
 
-    /* ── Update bar ──────────────────────────────────────── */
-    #update-bar {
-      border-bottom: 1px solid var(--line);
-      padding: 8px 28px;
-      display: flex; align-items: center; gap: 10px;
-      font-family: var(--mono); font-size: 11px;
-      color: var(--fg-3); letter-spacing: 0.04em;
-      position: relative; z-index: 1;
-    }
-    #update-bar .dot {
-      width: 6px; height: 6px;
-      background: var(--accent);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
-    }
+    /* Card */
+    .card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:16px; display:flex; flex-direction:column; transition:box-shadow 0.2s,transform 0.15s; }
+    .card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.08); transform:translateY(-2px); }
+    .card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+    .card-head-left { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+    .badge { display:inline-flex; align-items:center; gap:5px; padding:3px 9px; border-radius:99px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; }
+    .badge-dot { width:6px; height:6px; border-radius:50%; }
+    .badge-aperto   { background:var(--green-bg);  color:var(--green); }
+    .badge-aperto   .badge-dot { background:var(--green); }
+    .badge-scadenza { background:var(--orange-bg); color:var(--orange); }
+    .badge-scadenza .badge-dot { background:var(--orange); }
+    .badge-chiuso   { background:#f3f4f6; color:var(--text-3); }
+    .badge-chiuso   .badge-dot { background:var(--text-3); }
+    .badge-region { background:#f3f4f6; color:var(--text-2); font-size:10px; font-weight:500; padding:3px 8px; border-radius:99px; text-transform:none; letter-spacing:0; }
+    .card-actions { display:flex; align-items:center; gap:4px; }
+    .card-action-btn { width:26px; height:26px; border-radius:6px; border:1px solid var(--border); background:transparent; display:flex; align-items:center; justify-content:center; color:var(--text-3); cursor:pointer; font-size:12px; transition:background 0.15s; }
+    .card-action-btn:hover { background:var(--bg); color:var(--text); }
+    .card-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:3px; line-height:1.35; }
+    .card-ente { font-size:12px; color:var(--text-2); margin-bottom:14px; }
+    .card-amount { font-size:20px; font-weight:800; letter-spacing:-0.5px; color:var(--text); margin-bottom:2px; }
+    .card-intensity { font-size:11px; color:var(--text-3); margin-bottom:14px; }
+    .card-footer { margin-top:auto; border-top:1px solid var(--border); padding-top:12px; }
+    .card-date { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-2); margin-bottom:10px; }
+    .card-date.urgente { color:var(--orange); font-weight:600; }
+    .card-date-right { margin-left:auto; color:var(--text-3); font-size:11px; }
+    .card-bottom { display:flex; align-items:center; justify-content:space-between; }
+    .card-link { display:flex; align-items:center; gap:5px; font-size:13px; font-weight:600; color:var(--text); text-decoration:none; }
+    .card-link:hover { text-decoration:underline; }
+    .card-ext { width:26px; height:26px; border-radius:6px; border:1px solid var(--border); background:transparent; display:flex; align-items:center; justify-content:center; color:var(--text-3); text-decoration:none; font-size:12px; transition:background 0.15s; }
+    .card-ext:hover { background:var(--bg); }
 
-    /* ── Main ────────────────────────────────────────────── */
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 28px 28px 60px;
-      position: relative; z-index: 1;
-    }
+    /* Pagination */
+    .pagination { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:36px; }
+    .page-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); background:var(--white); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:500; cursor:pointer; color:var(--text-2); transition:all 0.15s; font-family:inherit; }
+    .page-btn:hover { background:var(--bg); }
+    .page-btn.active { background:var(--text); color:white; border-color:var(--text); }
+    .page-btn:disabled { opacity:0.3; cursor:default; }
 
-    /* ── Stats ───────────────────────────────────────────── */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      border: 1px solid var(--line);
-      margin-bottom: 24px;
-    }
-    .stat {
-      padding: 20px 22px;
-      border-right: 1px solid var(--line);
-    }
-    .stat:last-child { border-right: none; }
-    .stat-value {
-      font-family: var(--mono);
-      font-size: 32px; font-weight: 600;
-      letter-spacing: -1px;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .stat-label {
-      font-family: var(--mono);
-      font-size: 10px; font-weight: 500;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
+    /* Footer */
+    footer { background:linear-gradient(180deg,#1c1c1c 0%,#111111 60%,#0a0a0a 100%); color:#fff; margin-top:60px; }
+    .footer-top { max-width:1240px; margin:0 auto; padding:40px 32px; display:flex; align-items:center; gap:0; }
+    .footer-logo { display:flex; align-items:center; text-decoration:none; padding-right:32px; }
+    .footer-divider { width:1px; background:#333; align-self:stretch; margin-right:32px; flex-shrink:0; }
+    .footer-info { font-size:13px; color:#9ca3af; line-height:1.7; }
+    .footer-info strong { color:#d1d5db; }
+    .footer-sep { max-width:1240px; margin:0 auto; height:1px; background:#2a2a2a; }
+    .footer-bottom { max-width:1240px; margin:0 auto; padding:20px 32px; display:flex; align-items:flex-start; justify-content:space-between; }
+    .footer-bottom-left { display:flex; font-size:13px; color:#6b7280; align-items:center; }
+    .footer-links { display:flex; gap:20px; }
+    .footer-links a { color:#6b7280; text-decoration:none; font-size:13px; }
+    .footer-links a:hover { color:#d1d5db; }
+    .footer-social { display:flex; align-items:center; gap:10px; font-size:13px; color:#6b7280; padding-top:2px; }
+    .social-btn { width:34px; height:34px; border-radius:50%; border:1px solid #333; color:#9ca3af; display:flex; align-items:center; justify-content:center; text-decoration:none; transition:all 0.15s; }
+    .social-btn:hover { border-color:#555; color:white; }
 
-    /* ── Urgency bar ─────────────────────────────────────── */
-    #urgency {
-      border: 1px solid var(--warning);
-      background: rgba(255,183,77,0.04);
-      padding: 14px 20px;
-      margin-bottom: 20px;
-      display: none;
-    }
-    #urgency-title {
-      font-family: var(--mono);
-      font-size: 10px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.12em;
-      color: var(--warning);
-      margin-bottom: 8px;
-    }
-    .urgency-item {
-      font-size: 13px; color: var(--fg-2);
-      padding: 3px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .urgency-item:last-child { border-bottom: none; }
-    .urgency-days {
-      font-family: var(--mono); font-size: 11px;
-      color: var(--warning); font-weight: 600;
-    }
-
-    /* ── Filters ─────────────────────────────────────────── */
-    .filters {
-      display: flex; gap: 1px;
-      margin-bottom: 1px;
-      border: 1px solid var(--line);
-      border-bottom: none;
-    }
-    .filters input,
-    .filters select {
-      flex: 1;
-      background: var(--black-3);
-      border: none;
-      border-right: 1px solid var(--line);
-      padding: 10px 14px;
-      color: var(--fg);
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.04em;
-      outline: none;
-      appearance: none;
-    }
-    .filters input:focus,
-    .filters select:focus { background: var(--black-4); }
-    .filters input::placeholder { color: var(--muted); }
-    .filters select:last-of-type { border-right: none; }
-    #count {
-      display: flex; align-items: center;
-      padding: 0 16px;
-      font-family: var(--mono); font-size: 10px;
-      color: var(--muted); white-space: nowrap;
-      letter-spacing: 0.08em; text-transform: uppercase;
-    }
-    select option { background: #111; }
-
-    /* ── Grid ────────────────────────────────────────────── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 12px;
-    }
-
-    /* ── Card ────────────────────────────────────────────── */
-    .card {
-      background: var(--black-2);
-      border: 1px solid var(--line-2);
-      border-left: 3px solid transparent;
-      padding: 22px 22px 18px;
-      position: relative;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .card:hover { background: var(--black-3); border-color: var(--line-3); }
-    .card.aperto  { border-left-color: var(--accent); }
-    .card.scadenza { border-left-color: var(--warning); }
-    .card.chiuso  { border-left-color: var(--line-3); opacity: 0.55; }
-
-    .card-top {
-      display: flex; justify-content: space-between;
-      align-items: flex-start; margin-bottom: 12px;
-    }
-    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-
-    .badge {
-      font-family: var(--mono);
-      font-size: 9px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      padding: 3px 7px;
-      border: 1px solid;
-    }
-    .badge-aperto  { color: var(--accent);  border-color: rgba(212,255,63,0.3);  background: rgba(212,255,63,0.06); }
-    .badge-scadenza { color: var(--warning); border-color: rgba(255,183,77,0.3);  background: rgba(255,183,77,0.06); }
-    .badge-chiuso  { color: var(--muted);   border-color: var(--line-2);           background: transparent; }
-    .badge-region  { color: var(--fg-3);    border-color: var(--line-2);           background: transparent; font-weight: 400; }
-
-    .card-source {
-      font-family: var(--mono);
-      font-size: 9px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-    }
-    .card-source.ok   { color: var(--accent); }
-    .card-source.auto { color: var(--muted); }
-
-    .card-title {
-      font-family: var(--display);
-      font-size: 14px; font-weight: 600;
-      color: var(--fg); line-height: 1.4;
-      margin-bottom: 3px;
-    }
-    .card-ente {
-      font-size: 12px; color: var(--fg-3);
-      margin-bottom: 14px;
-    }
-
-    .card-amount {
-      font-family: var(--mono);
-      font-size: 15px; font-weight: 600;
-      color: var(--fg); letter-spacing: -0.3px;
-      margin-bottom: 2px;
-    }
-    .card-intensity {
-      font-family: var(--mono);
-      font-size: 10px; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.08em;
-    }
-
-    .card-footer {
-      display: flex; justify-content: space-between;
-      align-items: center;
-      margin-top: 16px;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-    }
-    .card-scadenza {
-      font-family: var(--mono);
-      font-size: 11px; color: var(--fg-3);
-    }
-    .card-scadenza.urgente { color: var(--warning); font-weight: 600; }
-    .card-link {
-      font-family: var(--mono);
-      font-size: 10px; font-weight: 600;
-      color: var(--accent);
-      text-decoration: none; letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .card-link:hover { text-decoration: underline; }
-
-    /* ── Loading ─────────────────────────────────────────── */
-    #loading {
-      padding: 60px 20px; text-align: center;
-      font-family: var(--mono); font-size: 12px;
-      color: var(--muted); letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* ── Footer ──────────────────────────────────────────── */
-    footer {
-      text-align: center;
-      font-family: var(--mono); font-size: 10px;
-      color: var(--muted); letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 40px;
-      padding-bottom: 24px;
-      position: relative; z-index: 1;
-    }
-
-    /* ── Responsive ──────────────────────────────────────── */
-    @media (max-width: 720px) {
-      header { padding: 0 16px; }
-      .logo-tag { display: none; }
-      main { padding: 16px 16px 48px; }
-      .stats { grid-template-columns: repeat(2,1fr); }
-      .stat { padding: 16px; }
-      .grid { grid-template-columns: 1fr; }
-      .filters { flex-wrap: wrap; }
-      .filters input,
-      .filters select { flex: 1 1 160px; border-right: none; border-bottom: 1px solid var(--line); }
-      #count { padding: 8px 14px; border-top: 1px solid var(--line); width: 100%; }
-    }
+    /* Responsive */
+/* Responsive */
+    @media(max-width:1100px){ .grid{grid-template-columns:repeat(3,1fr);} }
+    @media(max-width:800px){ .grid{grid-template-columns:repeat(2,1fr);} .stats-card{grid-template-columns:repeat(2,1fr);} .stat{border-right:none;border-bottom:1px solid var(--border);padding:12px 0;} }
+    @media(max-width:540px){ .grid{grid-template-columns:1fr;} .stats-card{grid-template-columns:1fr;} .page{padding:20px 16px 60px;} .topbar{padding:0 16px;} .filter-row-1{flex-wrap:wrap;} }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <div class="logo-mark">BR</div>
-    <span class="logo-name">BandiRadar</span>
-    <span class="logo-tag">Monitor Bandi & Contributi PMI</span>
+<nav class="topbar">
+  <a href="#" class="logo"><svg width="120" height="17" viewBox="0 0 203 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.5522 14.7328L19.6989 12.5862L14.3323 7.21968L16.0886 5.46336C18.1377 3.41431 21.5528 3.41431 23.6994 5.46336C24.48 6.24394 24.9678 7.21968 25.163 8.19542L28.0902 7.60997C27.212 3.02402 22.8212 0.096811 18.2353 0.877399C16.5765 1.17012 15.0153 2.04828 13.8444 3.21916L11.0148 6.0488C10.5269 6.63424 10.5269 7.60997 11.1124 8.19542L17.5522 14.7328Z" fill="#111111" stroke="#111111" stroke-width="0.9"/>
+<path d="M35.5058 12.9765C32.1883 9.75661 26.9193 9.75661 23.6994 13.0741L13.1615 23.5145C11.1124 25.5635 7.69734 25.5635 5.55072 23.5145C3.4041 21.4654 3.50168 18.0504 5.55072 15.9037L10.0391 11.5129L7.89249 9.26874L3.50168 13.6595C0.184175 16.977 0.184175 22.246 3.50168 25.5635C6.81918 28.881 12.0881 28.881 15.4056 25.5635L25.846 15.1232C27.8951 13.0741 31.2126 12.9765 33.2616 15.0256L33.3592 15.1232C36.8718 18.6358 36.1888 19.9043 35.0179 20.9776L31.6029 24.3926L26.2363 19.0261L24.0897 21.1727L30.5295 27.6126C31.115 28.198 32.0907 28.198 32.6762 27.6126L37.1645 23.1242C41.4578 18.9285 37.067 14.5377 35.5058 12.9765Z" fill="#111111" stroke="#111111" stroke-width="0.9"/>
+<path d="M67.4685 13.6897C67.2338 13.007 66.5831 12.4737 65.5165 12.0897C64.4498 11.7057 63.1165 11.5137 61.5165 11.5137C58.9138 11.5137 57.6125 12.0363 57.6125 13.0817C57.6125 13.871 58.4658 14.4363 60.1725 14.7777L66.2205 15.8977C70.3805 16.687 72.4605 18.287 72.4605 20.6977C72.4605 24.0897 69.0791 25.7857 62.3165 25.7857C55.9591 25.7857 52.5565 23.9617 52.1085 20.3137L56.5245 20.1857C56.9298 21.743 58.9991 22.5217 62.7325 22.5217C66.0391 22.5217 67.6925 21.9883 67.6925 20.9217C67.6925 20.1537 66.7325 19.5777 64.8125 19.1937L58.4125 17.9777C56.5565 17.615 55.1591 17.0283 54.2205 16.2177C53.3031 15.3857 52.8445 14.3937 52.8445 13.2417C52.8445 11.5137 53.6551 10.255 55.2765 9.46567C56.9191 8.65501 59.0845 8.24967 61.7725 8.24967C64.5671 8.24967 66.8818 8.67634 68.7165 9.52967C70.5511 10.383 71.6071 11.7163 71.8845 13.5297L67.4685 13.6897ZM75.6087 6.39367V2.07367H80.6647V6.39367H75.6087ZM75.7687 25.4017V8.63367H80.5367V25.4017H75.7687ZM97.722 8.24967C100.346 8.24967 102.341 8.92167 103.706 10.2657C105.071 11.6097 105.754 13.583 105.754 16.1857V25.4017H100.986V17.6577C100.986 15.8443 100.591 14.479 99.802 13.5617C99.0126 12.6443 97.7433 12.1857 95.994 12.1857C94.01 12.1857 92.4846 12.751 91.418 13.8817C90.3513 14.991 89.818 16.5163 89.818 18.4577V25.4017H85.05V8.63367H89.434V12.6657C90.97 9.72167 93.7326 8.24967 97.722 8.24967ZM131.584 17.9137V18.4257H114.048C114.645 21.1563 116.949 22.5217 120.96 22.5217C123.669 22.5217 125.546 21.8923 126.592 20.6337L131.232 20.8257C130.613 22.4043 129.429 23.631 127.68 24.5057C125.93 25.359 123.69 25.7857 120.96 25.7857C117.333 25.7857 114.464 25.0603 112.352 23.6097C110.261 22.159 109.216 19.9617 109.216 17.0177C109.216 14.1163 110.25 11.9297 112.32 10.4577C114.41 8.98567 117.194 8.24967 120.672 8.24967C127.946 8.24967 131.584 11.471 131.584 17.9137ZM120.672 11.5137C116.874 11.5137 114.677 12.847 114.08 15.5137H126.88C126.773 14.2763 126.176 13.3057 125.088 12.6017C124.021 11.8763 122.549 11.5137 120.672 11.5137ZM146.472 8.24967C147.432 8.24967 148.306 8.34567 149.096 8.53767V12.6977C147.688 12.527 146.61 12.4417 145.864 12.4417C143.816 12.4417 142.312 12.9963 141.352 14.1057C140.392 15.215 139.912 16.9857 139.912 19.4177V25.4017H135.144V8.63367H139.56V12.9217C140.2 11.407 141.106 10.255 142.28 9.46567C143.474 8.65501 144.872 8.24967 146.472 8.24967ZM164.967 8.24967C167.889 8.24967 170.257 9.03901 172.071 10.6177C173.905 12.175 174.823 14.3083 174.823 17.0177C174.823 19.727 173.916 21.871 172.103 23.4497C170.289 25.007 167.932 25.7857 165.031 25.7857C161.191 25.7857 158.481 24.527 156.903 22.0097V25.4017H152.519V1.84967H157.287V11.4817C158.865 9.32701 161.425 8.24967 164.967 8.24967ZM158.823 20.7617C159.996 21.7003 161.585 22.1697 163.591 22.1697C165.596 22.1697 167.185 21.7003 168.359 20.7617C169.532 19.823 170.119 18.575 170.119 17.0177C170.119 15.4603 169.532 14.2123 168.359 13.2737C167.185 12.335 165.596 11.8657 163.591 11.8657C161.585 11.8657 159.996 12.335 158.823 13.2737C157.649 14.2123 157.063 15.4603 157.063 17.0177C157.063 18.575 157.649 19.823 158.823 20.7617ZM178.296 6.39367V2.07367H183.352V6.39367H178.296ZM178.456 25.4017V8.63367H183.224V25.4017H178.456ZM201.401 12.2177H195.769V18.7777C195.769 19.9723 195.972 20.783 196.377 21.2097C196.783 21.6363 197.583 21.8497 198.777 21.8497C199.588 21.8497 200.463 21.7857 201.401 21.6577V25.4977C200.249 25.6897 199.044 25.7857 197.785 25.7857C195.353 25.7857 193.615 25.3163 192.569 24.3777C191.524 23.4177 191.001 21.7963 191.001 19.5137V12.2177H186.105V8.69767H189.785C190.34 8.69767 190.724 8.60167 190.937 8.40967C191.172 8.19634 191.289 7.85501 191.289 7.38567V4.56967H195.769V8.63367H201.401V12.2177Z" fill="#111111"/>
+</svg></a>
+  <div class="topbar-actions">
+    <button class="btn-primary" onclick="location.reload()">
+      ↻ Aggiorna Bandi
+    </button>
+    <a href="BandiRadar.xlsx" download class="btn-icon" title="Scarica Excel">↓</a>
   </div>
-  <div class="header-right">
-    <a href="BandiRadar.xlsx" download class="btn-dl">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-        <path d="M6 1v7M3 5l3 3 3-3M1 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      Scarica Excel
-    </a>
-  </div>
-</header>
+</nav>
 
-<div id="update-bar">
-  <div class="dot"></div>
-  <span id="update-text">Caricamento...</span>
+<div class="page">
+  <!-- greeting hidden -->
+
+  <div class="stats-card">
+    <div class="stat">
+      <div class="stat-icon green">✓</div>
+      <div><div class="stat-value" id="s-tot">—</div><div class="stat-label">Bandi totali</div></div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon orange">⚠</div>
+      <div><div class="stat-value" id="s-ins">—</div><div class="stat-label">Scadono entro 30 giorni</div></div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon red">✕</div>
+      <div><div class="stat-value" id="s-closed">—</div><div class="stat-label">Bandi scaduti</div></div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon blue">↻</div>
+      <div><div class="stat-value" id="s-ver">—</div><div class="stat-label">Verificati</div></div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-row-1">
+      <div class="filter-group">
+        <label>Regione</label>
+        <select id="filter-regione" class="filter-select"><option value="">Tutti</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Scadenza</label>
+        <select id="filter-scadenza" class="filter-select">
+          <option value="">Tutti</option>
+          <option value="30">Entro 30 giorni</option>
+          <option value="90">Entro 3 mesi</option>
+          <option value="180">Entro 6 mesi</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Settore</label>
+        <select id="filter-settore" class="filter-select"><option value="">Tutti</option></select>
+      </div>
+      <input type="text" id="search" class="filter-search" placeholder="🔍  Cerca bando o ente...">
+      <button class="btn-filter">⚙ Filtra</button>
+    </div>
+    <div class="filter-row-2">
+      <div class="tabs">
+        <button class="tab active" onclick="setTab(this,'tutti')">Tutti</button>
+        <button class="tab" onclick="setTab(this,'APERTO')"><span class="tab-dot green"></span>Aperti</button>
+        <button class="tab" onclick="setTab(this,'IN SCADENZA')"><span class="tab-dot orange"></span>In scadenza</button>
+        <button class="tab" onclick="setTab(this,'CHIUSO')"><span class="tab-dot red"></span>Scaduti</button>
+      </div>
+      <div class="filter-right">
+        <span><span class="filter-count" id="count">—</span> risultati</span>
+        <span>Ordina per</span>
+        <select class="sort-select" id="sort" onchange="render()">
+          <option value="scadenza">Più recente</option>
+          <option value="titolo">Alfabetico</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title" id="section-label">Tutti i Bandi</div>
+  <div class="grid" id="grid">
+    <div style="grid-column:1/-1;padding:60px;text-align:center;color:#9ca3af;font-size:14px">Caricamento bandi...</div>
+  </div>
+  <div class="pagination" id="pagination"></div>
 </div>
 
-<main>
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-value" id="s-tot" style="color:var(--fg)">—</div>
-      <div class="stat-label">Bandi totali</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value" id="s-ap" style="color:var(--accent)">—</div>
-      <div class="stat-label">Aperti</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value" id="s-ins" style="color:var(--warning)">—</div>
-      <div class="stat-label">In scadenza</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value" id="s-ver" style="color:var(--fg-3)">—</div>
-      <div class="stat-label">Verificati</div>
-    </div>
-  </div>
-
-  <!-- Urgency -->
-  <div id="urgency">
-    <div id="urgency-title">⚠ Bandi in scadenza entro 30 giorni</div>
-    <div id="urgency-list"></div>
-  </div>
-
-  <!-- Filters -->
-  <div class="filters">
-    <input type="text" id="search" placeholder="/ cerca bando, ente...">
-    <select id="filter-stato">
-      <option value="">— stato —</option>
-      <option value="APERTO">Aperto</option>
-      <option value="IN SCADENZA">In scadenza</option>
-      <option value="CHIUSO">Chiuso</option>
-    </select>
-    <select id="filter-regione"><option value="">— regione —</option></select>
-    <select id="filter-settore"><option value="">— settore —</option></select>
-    <span id="count">—</span>
-  </div>
-
-  <!-- Grid -->
-  <div id="loading">Caricamento bandi in corso...</div>
-  <div class="grid" id="grid" style="display:none"></div>
-</main>
-
 <footer>
-  BandiRadar &nbsp;·&nbsp; Aggiornamento automatico ogni lunedì &nbsp;·&nbsp;
-  Fonti: Regione Toscana · Regione Lombardia · MIMIT · SIMEST · CCIAA · EUIPO
+  <div class="footer-top">
+    <a href="#" class="footer-logo"><svg width="120" height="17" viewBox="0 0 203 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.5522 14.7328L19.6989 12.5862L14.3323 7.21968L16.0886 5.46336C18.1377 3.41431 21.5528 3.41431 23.6994 5.46336C24.48 6.24394 24.9678 7.21968 25.163 8.19542L28.0902 7.60997C27.212 3.02402 22.8212 0.096811 18.2353 0.877399C16.5765 1.17012 15.0153 2.04828 13.8444 3.21916L11.0148 6.0488C10.5269 6.63424 10.5269 7.60997 11.1124 8.19542L17.5522 14.7328Z" fill="white" stroke="white" stroke-width="0.9"/>
+<path d="M35.5058 12.9765C32.1883 9.75661 26.9193 9.75661 23.6994 13.0741L13.1615 23.5145C11.1124 25.5635 7.69734 25.5635 5.55072 23.5145C3.4041 21.4654 3.50168 18.0504 5.55072 15.9037L10.0391 11.5129L7.89249 9.26874L3.50168 13.6595C0.184175 16.977 0.184175 22.246 3.50168 25.5635C6.81918 28.881 12.0881 28.881 15.4056 25.5635L25.846 15.1232C27.8951 13.0741 31.2126 12.9765 33.2616 15.0256L33.3592 15.1232C36.8718 18.6358 36.1888 19.9043 35.0179 20.9776L31.6029 24.3926L26.2363 19.0261L24.0897 21.1727L30.5295 27.6126C31.115 28.198 32.0907 28.198 32.6762 27.6126L37.1645 23.1242C41.4578 18.9285 37.067 14.5377 35.5058 12.9765Z" fill="white" stroke="white" stroke-width="0.9"/>
+<path d="M67.4685 13.6897C67.2338 13.007 66.5831 12.4737 65.5165 12.0897C64.4498 11.7057 63.1165 11.5137 61.5165 11.5137C58.9138 11.5137 57.6125 12.0363 57.6125 13.0817C57.6125 13.871 58.4658 14.4363 60.1725 14.7777L66.2205 15.8977C70.3805 16.687 72.4605 18.287 72.4605 20.6977C72.4605 24.0897 69.0791 25.7857 62.3165 25.7857C55.9591 25.7857 52.5565 23.9617 52.1085 20.3137L56.5245 20.1857C56.9298 21.743 58.9991 22.5217 62.7325 22.5217C66.0391 22.5217 67.6925 21.9883 67.6925 20.9217C67.6925 20.1537 66.7325 19.5777 64.8125 19.1937L58.4125 17.9777C56.5565 17.615 55.1591 17.0283 54.2205 16.2177C53.3031 15.3857 52.8445 14.3937 52.8445 13.2417C52.8445 11.5137 53.6551 10.255 55.2765 9.46567C56.9191 8.65501 59.0845 8.24967 61.7725 8.24967C64.5671 8.24967 66.8818 8.67634 68.7165 9.52967C70.5511 10.383 71.6071 11.7163 71.8845 13.5297L67.4685 13.6897ZM75.6087 6.39367V2.07367H80.6647V6.39367H75.6087ZM75.7687 25.4017V8.63367H80.5367V25.4017H75.7687ZM97.722 8.24967C100.346 8.24967 102.341 8.92167 103.706 10.2657C105.071 11.6097 105.754 13.583 105.754 16.1857V25.4017H100.986V17.6577C100.986 15.8443 100.591 14.479 99.802 13.5617C99.0126 12.6443 97.7433 12.1857 95.994 12.1857C94.01 12.1857 92.4846 12.751 91.418 13.8817C90.3513 14.991 89.818 16.5163 89.818 18.4577V25.4017H85.05V8.63367H89.434V12.6657C90.97 9.72167 93.7326 8.24967 97.722 8.24967ZM131.584 17.9137V18.4257H114.048C114.645 21.1563 116.949 22.5217 120.96 22.5217C123.669 22.5217 125.546 21.8923 126.592 20.6337L131.232 20.8257C130.613 22.4043 129.429 23.631 127.68 24.5057C125.93 25.359 123.69 25.7857 120.96 25.7857C117.333 25.7857 114.464 25.0603 112.352 23.6097C110.261 22.159 109.216 19.9617 109.216 17.0177C109.216 14.1163 110.25 11.9297 112.32 10.4577C114.41 8.98567 117.194 8.24967 120.672 8.24967C127.946 8.24967 131.584 11.471 131.584 17.9137ZM120.672 11.5137C116.874 11.5137 114.677 12.847 114.08 15.5137H126.88C126.773 14.2763 126.176 13.3057 125.088 12.6017C124.021 11.8763 122.549 11.5137 120.672 11.5137ZM146.472 8.24967C147.432 8.24967 148.306 8.34567 149.096 8.53767V12.6977C147.688 12.527 146.61 12.4417 145.864 12.4417C143.816 12.4417 142.312 12.9963 141.352 14.1057C140.392 15.215 139.912 16.9857 139.912 19.4177V25.4017H135.144V8.63367H139.56V12.9217C140.2 11.407 141.106 10.255 142.28 9.46567C143.474 8.65501 144.872 8.24967 146.472 8.24967ZM164.967 8.24967C167.889 8.24967 170.257 9.03901 172.071 10.6177C173.905 12.175 174.823 14.3083 174.823 17.0177C174.823 19.727 173.916 21.871 172.103 23.4497C170.289 25.007 167.932 25.7857 165.031 25.7857C161.191 25.7857 158.481 24.527 156.903 22.0097V25.4017H152.519V1.84967H157.287V11.4817C158.865 9.32701 161.425 8.24967 164.967 8.24967ZM158.823 20.7617C159.996 21.7003 161.585 22.1697 163.591 22.1697C165.596 22.1697 167.185 21.7003 168.359 20.7617C169.532 19.823 170.119 18.575 170.119 17.0177C170.119 15.4603 169.532 14.2123 168.359 13.2737C167.185 12.335 165.596 11.8657 163.591 11.8657C161.585 11.8657 159.996 12.335 158.823 13.2737C157.649 14.2123 157.063 15.4603 157.063 17.0177C157.063 18.575 157.649 19.823 158.823 20.7617ZM178.296 6.39367V2.07367H183.352V6.39367H178.296ZM178.456 25.4017V8.63367H183.224V25.4017H178.456ZM201.401 12.2177H195.769V18.7777C195.769 19.9723 195.972 20.783 196.377 21.2097C196.783 21.6363 197.583 21.8497 198.777 21.8497C199.588 21.8497 200.463 21.7857 201.401 21.6577V25.4977C200.249 25.6897 199.044 25.7857 197.785 25.7857C195.353 25.7857 193.615 25.3163 192.569 24.3777C191.524 23.4177 191.001 21.7963 191.001 19.5137V12.2177H186.105V8.69767H189.785C190.34 8.69767 190.724 8.60167 190.937 8.40967C191.172 8.19634 191.289 7.85501 191.289 7.38567V4.56967H195.769V8.63367H201.401V12.2177Z" fill="white"/>
+</svg></a>
+    <div class="footer-divider"></div>
+    <div class="footer-info">
+      <div>Aggiornamento automatico ogni lunedì</div>
+      <div><strong>Fonti:</strong> Regione Toscana &nbsp;–&nbsp; MIMIT &nbsp;–&nbsp; SIMEST &nbsp;–&nbsp; CCIA &nbsp;–&nbsp; EUIPO</div>
+    </div>
+  </div>
+  <div class="footer-sep"></div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <div>© 2026 Sinerbit Srl · Tutti i diritti riservati</div>
+
+    </div>
+    <div class="footer-social">
+      <span>Seguici su</span>
+      <a href="#" class="social-btn" title="Instagram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" class="social-btn" title="LinkedIn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="#" class="social-btn" title="Facebook">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+    </div>
+  </div>
 </footer>
 
 <script>
-const ICONS = {
-  "Digitalizzazione / Transizione 4.0": "⚡",
-  "Innovazione / R&S": "◈",
-  "E-commerce & Export": "◎",
-  "Cybersecurity": "▣",
-  "Formazione 4.0": "◇",
-  "Voucher Consulenza / Brand / UI-UX": "◰",
-};
+let allBandi=[], activeTab="tutti";
+const PER=12; let page=1;
 
-let allBandi = [];
+function dl(sc){ const t=new Date(); t.setHours(0,0,0,0); return Math.ceil((new Date(sc)-t)/86400000); }
+function fd(iso){ try{return new Date(iso).toLocaleDateString("it-IT");}catch{return iso;} }
+function dlLabel(d){ if(d<0)return"Scaduto"; if(d===0)return"Scade oggi"; if(d===1)return"Scade domani"; return"Scade tra "+d+" giorni"; }
 
-function daysLeft(sc) {
-  const today = new Date(); today.setHours(0,0,0,0);
-  return Math.ceil((new Date(sc) - today) / 86400000);
-}
-function fmtDate(iso) {
-  try { return new Date(iso).toLocaleDateString("it-IT"); }
-  catch { return iso; }
+function setTab(el,tab){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  el.classList.add("active"); activeTab=tab; page=1;
+  const L={tutti:"Tutti i Bandi",APERTO:"Bandi Aperti","IN SCADENZA":"In Scadenza",CHIUSO:"Bandi Scaduti"};
+  document.getElementById("section-label").textContent=L[tab]||"Tutti i Bandi";
+  render();
 }
 
-function renderCard(b) {
-  const dl = daysLeft(b.scadenza);
-  const isUrgent = dl >= 0 && dl <= 30;
-  const cls = b.status === "IN SCADENZA" || isUrgent ? "scadenza"
-            : b.status === "CHIUSO" ? "chiuso" : "aperto";
-  const badgeCls = cls === "scadenza" ? "badge-scadenza"
-                 : cls === "chiuso"   ? "badge-chiuso" : "badge-aperto";
-  const badgeLbl = cls === "scadenza" ? "IN SCADENZA"
-                 : cls === "chiuso"   ? "CHIUSO" : "APERTO";
-  const icon = ICONS[b.settore] || "·";
-  const srcCls = b.fonte === "VERIFICATO" ? "ok" : "auto";
-  const srcLbl = b.fonte === "VERIFICATO" ? "VERIF." : "AUTO";
+function getFiltered(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const re=document.getElementById("filter-regione").value;
+  const se=document.getElementById("filter-settore").value;
+  const sc=parseInt(document.getElementById("filter-scadenza").value)||0;
+  const sort=document.getElementById("sort").value;
+  let f=allBandi.filter(b=>{
+    if(activeTab!=="tutti"&&b.status!==activeTab)return false;
+    if(re&&b.regione!==re)return false;
+    if(se&&b.settore!==se)return false;
+    if(sc){const d=dl(b.scadenza);if(d<0||d>sc)return false;}
+    if(q&&!b.titolo.toLowerCase().includes(q)&&!b.ente.toLowerCase().includes(q))return false;
+    return true;
+  });
+  f.sort((a,b)=>sort==="titolo"?a.titolo.localeCompare(b.titolo):new Date(a.scadenza)-new Date(b.scadenza));
+  return f;
+}
 
-  return `<div class="card ${cls}">
-    <div class="card-top">
-      <div class="card-tags">
-        <span class="badge ${badgeCls}">${badgeLbl}</span>
-        <span class="badge badge-region">${b.regione}</span>
+function render(){
+  const f=getFiltered(); const pages=Math.ceil(f.length/PER);
+  if(page>pages&&pages>0)page=1;
+  const slice=f.slice((page-1)*PER,page*PER);
+  document.getElementById("count").textContent=f.length;
+  const grid=document.getElementById("grid");
+  if(!slice.length){ grid.innerHTML='<div style="grid-column:1/-1;padding:60px;text-align:center;color:#9ca3af">Nessun bando trovato.</div>'; }
+  else { grid.innerHTML=slice.map(card).join(""); }
+  renderPag(pages);
+}
+
+function card(b){
+  const d=dl(b.scadenza); const urg=d>=0&&d<=30;
+  const bc=b.status==="IN SCADENZA"||urg?"badge-scadenza":b.status==="CHIUSO"?"badge-chiuso":"badge-aperto";
+  const bl=b.status==="IN SCADENZA"||urg?"IN SCADENZA":b.status==="CHIUSO"?"SCADUTO":"APERTO";
+  const dc=urg?"card-date urgente":"card-date";
+  return `<div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <span class="badge ${bc}"><span class="badge-dot"></span>${bl}</span>
+        <span class="badge-region">${b.regione.replace("Regione ","")}</span>
       </div>
-      <span class="card-source ${srcCls}">${srcLbl}</span>
+      <div class="card-actions">
+        <button class="card-action-btn">⊡</button>
+        <button class="card-action-btn">···</button>
+      </div>
     </div>
-    <div style="font-size:18px;margin-bottom:8px;color:var(--fg-3)">${icon}</div>
     <div class="card-title">${b.titolo}</div>
     <div class="card-ente">${b.ente}</div>
     <div class="card-amount">${b.contributo}</div>
-    <div class="card-intensity">${b.intensita}</div>
+    <div class="card-intensity">${b.intensita||"—"}</div>
     <div class="card-footer">
-      <div class="card-scadenza ${isUrgent ? 'urgente' : ''}">
-        ${fmtDate(b.scadenza)}${dl >= 0 ? ' · ' + dl + 'gg' : ' · SCAD.'}
+      <div class="${dc}">
+        <span>📅</span><span>${dlLabel(d)}</span>
+        <span class="card-date-right">${fd(b.scadenza)}</span>
       </div>
-      ${b.link ? `<a href="${b.link}" target="_blank" rel="noreferrer" class="card-link">Bando →</a>` : ''}
+      <div class="card-bottom">
+        ${b.link
+          ?`<a href="${b.link}" target="_blank" rel="noreferrer" class="card-link">Vedi dettagli ↗</a>
+            <a href="${b.link}" target="_blank" rel="noreferrer" class="card-ext" title="Apri">↗</a>`
+          :`<span style="color:#9ca3af;font-size:13px">Nessun link</span>`}
+      </div>
     </div>
   </div>`;
 }
 
-function render() {
-  const q  = document.getElementById("search").value.toLowerCase();
-  const st = document.getElementById("filter-stato").value;
-  const re = document.getElementById("filter-regione").value;
-  const se = document.getElementById("filter-settore").value;
-  const f  = allBandi.filter(b =>
-    (!st || b.status === st) &&
-    (!re || b.regione === re) &&
-    (!se || b.settore === se) &&
-    (!q  || b.titolo.toLowerCase().includes(q) || b.ente.toLowerCase().includes(q))
-  );
-  document.getElementById("count").textContent = f.length + " risultati";
-  const grid = document.getElementById("grid");
-  grid.innerHTML = f.length
-    ? f.map(renderCard).join("")
-    : `<div style="padding:48px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Nessun bando trovato</div>`;
+function renderPag(pages){
+  const p=document.getElementById("pagination");
+  if(pages<=1){p.innerHTML="";return;}
+  let h=`<button class="page-btn" onclick="goPage(${page-1})" ${page===1?"disabled":""}>‹</button>`;
+  for(let i=1;i<=pages;i++) h+=`<button class="page-btn ${i===page?"active":""}" onclick="goPage(${i})">${i}</button>`;
+  h+=`<button class="page-btn" onclick="goPage(${page+1})" ${page===pages?"disabled":""}>›</button>`;
+  p.innerHTML=h;
 }
+function goPage(p2){ const f=getFiltered(); const pages=Math.ceil(f.length/PER); if(p2<1||p2>pages)return; page=p2; render(); window.scrollTo({top:0,behavior:"smooth"}); }
 
-async function init() {
-  try {
-    const res  = await fetch("bandi.json?t=" + Date.now());
-    const data = await res.json();
-    allBandi   = data.bandi || [];
-
-    const upd = new Date(data.aggiornato).toLocaleDateString("it-IT");
-    document.getElementById("update-text").textContent =
-      `Aggiornato ${upd}  ·  ${data.totale} bandi  ·  ${data.verificati} verificati  ·  aggiornamento automatico ogni lunedì`;
-
-    document.getElementById("s-tot").textContent = data.totale;
-    document.getElementById("s-ap").textContent  = data.aperti;
-    document.getElementById("s-ins").textContent = data.in_scadenza;
-    document.getElementById("s-ver").textContent = data.verificati;
-
-    // Urgency
-    const urgenti = allBandi.filter(b => daysLeft(b.scadenza) >= 0 && daysLeft(b.scadenza) <= 30);
-    if (urgenti.length) {
-      document.getElementById("urgency").style.display = "block";
-      document.getElementById("urgency-list").innerHTML = urgenti
-        .sort((a,b) => daysLeft(a.scadenza) - daysLeft(b.scadenza))
-        .map(b => `<div class="urgency-item">
-          ${b.titolo} &nbsp;<span class="urgency-days">${daysLeft(b.scadenza)}gg — scade ${fmtDate(b.scadenza)}</span>
-        </div>`).join("");
-    }
-
-    // Populate filters
-    const rSel = document.getElementById("filter-regione");
-    const sSel = document.getElementById("filter-settore");
-    [...new Set(allBandi.map(b => b.regione))].sort().forEach(r =>
-      rSel.innerHTML += `<option value="${r}">${r}</option>`);
-    [...new Set(allBandi.map(b => b.settore))].sort().forEach(s =>
-      sSel.innerHTML += `<option value="${s}">${s}</option>`);
-
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("grid").style.display = "grid";
-
-    ["search","filter-stato","filter-regione","filter-settore"].forEach(id =>
-      document.getElementById(id).addEventListener("input", render));
+async function init(){
+  try{
+    const res=await fetch("bandi.json?t="+Date.now());
+    const data=await res.json();
+    allBandi=data.bandi||[];
+    document.getElementById("s-tot").textContent=data.totale||allBandi.length;
+    document.getElementById("s-ins").textContent=data.in_scadenza||0;
+    document.getElementById("s-closed").textContent=allBandi.filter(b=>b.status==="CHIUSO").length;
+    document.getElementById("s-ver").textContent=data.verificati||0;
+    const rS=document.getElementById("filter-regione");
+    const sS=document.getElementById("filter-settore");
+    [...new Set(allBandi.map(b=>b.regione))].sort().forEach(r=>rS.innerHTML+=`<option value="${r}">${r}</option>`);
+    [...new Set(allBandi.map(b=>b.settore))].sort().forEach(s=>sS.innerHTML+=`<option value="${s}">${s}</option>`);
+    ["search","filter-regione","filter-scadenza","filter-settore"].forEach(id=>
+      document.getElementById(id).addEventListener("input",()=>{page=1;render();}));
     render();
-
-  } catch(e) {
-    document.getElementById("loading").innerHTML =
-      '<span style="color:var(--danger)">Errore caricamento. Riprova.</span>';
+  }catch(e){
+    document.getElementById("grid").innerHTML='<div style="grid-column:1/-1;padding:60px;text-align:center;color:#dc2626">Errore caricamento dati.</div>';
   }
 }
-
 init();
 </script>
 </body>
