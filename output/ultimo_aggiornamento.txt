@@ -1,9 +1,10 @@
-Ultimo aggiornamento: 29/06/2026 15:37
-Bandi totali: 19
+Ultimo aggiornamento: 06/07/2026 07:55
+Bandi totali: 17
 Verificati manualmente: 14
-Trovati automaticamente: 5
-Aperti: 18
-In scadenza (<=30gg): 1
+Trovati automaticamente: 3
+Aperti: 14
+In scadenza (<=30gg): 2
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
-  - Rafforza & Innova 2025 (scade 2026-06-30, 1gg)
+  - Credito d'Imposta Beni Strumentali 4.0 (scade 2026-07-31, 25gg)
+  - Voucher Fiere e Mostre CCIAA Toscana NW 2026 (scade 2026-07-31, 25gg)
