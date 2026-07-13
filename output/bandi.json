@@ -1,7 +1,7 @@
 {
-  "aggiornato": "2026-07-06",
-  "totale": 17,
-  "aperti": 14,
+  "aggiornato": "2026-07-13",
+  "totale": 18,
+  "aperti": 15,
   "in_scadenza": 2,
   "verificati": 14,
   "bandi": [
@@ -239,6 +239,20 @@
       "scadenza": "2026-12-31",
       "descrizione": "Ricerca e Innovazione",
       "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/ricerca-innovazione",
+      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
+      "fonte": "AUTO",
+      "status": "APERTO"
+    },
+    {
+      "titolo": "Formazione Continua - Quarta Edizione - Voucher aziendali a catalogo - P...",
+      "ente": "Regione Lombardia Bandi",
+      "regione": "Regione Lombardia",
+      "settore": "Formazione 4.0",
+      "contributo": "Vedere bando",
+      "intensita": "Vedere bando",
+      "scadenza": "2027-03-31",
+      "descrizione": "Formazione Continua - Quarta Edizione - Voucher aziendali a catalogo - P...",
+      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/istruzione-formazione-lavoro/formazione-professionale/formazione-continua-quarta-edizione-voucher-aziendali-catalogo-pr-fse-2021-2027-RLW12026053243",
       "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
       "fonte": "AUTO",
       "status": "APERTO"
