@@ -1,5 +1,5 @@
 {
-  "aggiornato": "2026-07-13",
+  "aggiornato": "2026-07-20",
   "totale": 18,
   "aperti": 15,
   "in_scadenza": 2,
@@ -202,6 +202,20 @@
       "status": "APERTO"
     },
     {
+      "titolo": "CRITERI E MODALITA’ PER L’ASSEGNAZIONE DEI CONTRIBUTI PER L’ACQUISTO DI ...",
+      "ente": "Regione Lombardia Bandi",
+      "regione": "Regione Lombardia",
+      "settore": "Digitalizzazione / Transizione 4.0",
+      "contributo": "Vedere bando",
+      "intensita": "Vedere bando",
+      "scadenza": "2026-09-30",
+      "descrizione": "CRITERI E MODALITA’ PER L’ASSEGNAZIONE DEI CONTRIBUTI PER L’ACQUISTO DI ...",
+      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/sanita/prevenzione-stili-vita/criteri-modalita-l-assegnazione-contributi-l-acquisto-sistemi-videosorveglianza-dotati-telecamere-indossabili-destinare-personale-sanitario-sociosanitario-operante-servizi-pi-rischio-aggressione-presso-enti-sanitari-pubblici-lombardi-RLY12026054726",
+      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
+      "fonte": "AUTO",
+      "status": "APERTO"
+    },
+    {
       "titolo": "Attività Produttive/Imprese",
       "ente": "Regione Lombardia Bandi",
       "regione": "Regione Lombardia",
@@ -239,20 +253,6 @@
       "scadenza": "2026-12-31",
       "descrizione": "Ricerca e Innovazione",
       "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/ricerca-innovazione",
-      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
-      "fonte": "AUTO",
-      "status": "APERTO"
-    },
-    {
-      "titolo": "Formazione Continua - Quarta Edizione - Voucher aziendali a catalogo - P...",
-      "ente": "Regione Lombardia Bandi",
-      "regione": "Regione Lombardia",
-      "settore": "Formazione 4.0",
-      "contributo": "Vedere bando",
-      "intensita": "Vedere bando",
-      "scadenza": "2027-03-31",
-      "descrizione": "Formazione Continua - Quarta Edizione - Voucher aziendali a catalogo - P...",
-      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/istruzione-formazione-lavoro/formazione-professionale/formazione-continua-quarta-edizione-voucher-aziendali-catalogo-pr-fse-2021-2027-RLW12026053243",
       "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
       "fonte": "AUTO",
       "status": "APERTO"
