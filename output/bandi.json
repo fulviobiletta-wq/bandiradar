@@ -1,8 +1,8 @@
 {
-  "aggiornato": "2026-07-27",
+  "aggiornato": "2026-08-03",
   "totale": 18,
   "aperti": 15,
-  "in_scadenza": 2,
+  "in_scadenza": 0,
   "verificati": 14,
   "bandi": [
     {
@@ -31,7 +31,7 @@
       "link": "https://www.mimit.gov.it/it/incentivi/credito-dimposta-per-investimenti-in-beni-strumentali",
       "note": "Solo chi ha versato acconto >=20% entro 31/12/2025.",
       "fonte": "VERIFICATO",
-      "status": "IN SCADENZA"
+      "status": "CHIUSO"
     },
     {
       "titolo": "Voucher Fiere e Mostre CCIAA Toscana NW 2026",
@@ -45,7 +45,7 @@
       "link": "https://tno.camcom.it/bandi/2026/bando-contributi-la-partecipazione-fiere-e-mostre-italia-e-allestero-anno-2026",
       "note": "Solo province Lucca, Massa-Carrara e Pisa. Domanda via ReStart Infocamere.",
       "fonte": "VERIFICATO",
-      "status": "IN SCADENZA"
+      "status": "CHIUSO"
     },
     {
       "titolo": "SPIDY — Speed up your business 2026",
@@ -202,15 +202,15 @@
       "status": "APERTO"
     },
     {
-      "titolo": "Corso di Formazione per Aspirante Guida di Primo Livello - anno 2026",
+      "titolo": "Manifestazione di interesse - Corsi di alta formazione per il personale ...",
       "ente": "Regione Lombardia Bandi",
       "regione": "Regione Lombardia",
       "settore": "Formazione 4.0",
       "contributo": "Vedere bando",
       "intensita": "Vedere bando",
-      "scadenza": "2026-09-04",
-      "descrizione": "Corso di Formazione per Aspirante Guida di Primo Livello - anno 2026",
-      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/cultura-turismo-sport/fare-sport/corso-formazione-aspirante-guida-primo-livello-anno-2026-RLAV2026054703",
+      "scadenza": "2026-09-21",
+      "descrizione": "Manifestazione di interesse - Corsi di alta formazione per il personale ...",
+      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/istruzione-formazione-lavoro/progetti-scuole/corsi-alta-formazione-personale-regione-lombardia-2026-27-RLAG2026055223",
       "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
       "fonte": "AUTO",
       "status": "APERTO"

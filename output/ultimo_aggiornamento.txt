@@ -1,10 +1,8 @@
-Ultimo aggiornamento: 27/07/2026 10:46
+Ultimo aggiornamento: 03/08/2026 10:46
 Bandi totali: 18
 Verificati manualmente: 14
 Trovati automaticamente: 4
 Aperti: 15
-In scadenza (<=30gg): 2
+In scadenza (<=30gg): 0
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
-  - Credito d'Imposta Beni Strumentali 4.0 (scade 2026-07-31, 4gg)
-  - Voucher Fiere e Mostre CCIAA Toscana NW 2026 (scade 2026-07-31, 4gg)
