@@ -1,5 +1,5 @@
 {
-  "aggiornato": "2026-08-03",
+  "aggiornato": "2026-08-10",
   "totale": 18,
   "aperti": 15,
   "in_scadenza": 0,
@@ -202,20 +202,6 @@
       "status": "APERTO"
     },
     {
-      "titolo": "Manifestazione di interesse - Corsi di alta formazione per il personale ...",
-      "ente": "Regione Lombardia Bandi",
-      "regione": "Regione Lombardia",
-      "settore": "Formazione 4.0",
-      "contributo": "Vedere bando",
-      "intensita": "Vedere bando",
-      "scadenza": "2026-09-21",
-      "descrizione": "Manifestazione di interesse - Corsi di alta formazione per il personale ...",
-      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/istruzione-formazione-lavoro/progetti-scuole/corsi-alta-formazione-personale-regione-lombardia-2026-27-RLAG2026055223",
-      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
-      "fonte": "AUTO",
-      "status": "APERTO"
-    },
-    {
       "titolo": "Attività Produttive/Imprese",
       "ente": "Regione Lombardia Bandi",
       "regione": "Regione Lombardia",
@@ -253,6 +239,20 @@
       "scadenza": "2026-12-31",
       "descrizione": "Ricerca e Innovazione",
       "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/ricerca-innovazione",
+      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
+      "fonte": "AUTO",
+      "status": "APERTO"
+    },
+    {
+      "titolo": "Avviso per il finanziamento dei percorsi di Istruzione e Formazione Prof...",
+      "ente": "Regione Lombardia Bandi",
+      "regione": "Regione Lombardia",
+      "settore": "Formazione 4.0",
+      "contributo": "Vedere bando",
+      "intensita": "Vedere bando",
+      "scadenza": "2027-04-22",
+      "descrizione": "Avviso per il finanziamento dei percorsi di Istruzione e Formazione Prof...",
+      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/istruzione-formazione-lavoro/formazione-professionale/avviso-finanziamento-percorsi-istruzione-formazione-professionale-iefp-ambito-budget-duale-anno-formativo-2026-2027-RLW12025050904",
       "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
       "fonte": "AUTO",
       "status": "APERTO"
