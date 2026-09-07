@@ -1,10 +1,9 @@
-Ultimo aggiornamento: 31/08/2026 14:57
-Bandi totali: 17
+Ultimo aggiornamento: 07/09/2026 13:23
+Bandi totali: 18
 Verificati manualmente: 13
-Trovati automaticamente: 4
-Aperti: 13
-In scadenza (<=30gg): 2
+Trovati automaticamente: 5
+Aperti: 15
+In scadenza (<=30gg): 1
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
-  - SPIDY — Speed up your business 2026 (scade 2026-09-30, 30gg)
-  - BANDO PER LA PARTECIPAZIONE ALLE INIZIATIVE DI PROMOZIONE TURISTICA SUI ... (scade 2026-09-15, 15gg)
+  - SPIDY — Speed up your business 2026 (scade 2026-09-30, 23gg)

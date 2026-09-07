@@ -1,8 +1,8 @@
 {
-  "aggiornato": "2026-08-31",
-  "totale": 17,
-  "aperti": 13,
-  "in_scadenza": 2,
+  "aggiornato": "2026-09-07",
+  "totale": 18,
+  "aperti": 15,
+  "in_scadenza": 1,
   "verificati": 13,
   "bandi": [
     {
@@ -188,18 +188,32 @@
       "status": "APERTO"
     },
     {
-      "titolo": "BANDO PER LA PARTECIPAZIONE ALLE INIZIATIVE DI PROMOZIONE TURISTICA SUI ...",
+      "titolo": "Bando Export su Misura 2026: Servizi a supporto delle imprese per l’acce...",
       "ente": "Regione Lombardia Bandi",
       "regione": "Regione Lombardia",
-      "settore": "Digitalizzazione / Transizione 4.0",
+      "settore": "E-commerce & Export",
       "contributo": "Vedere bando",
       "intensita": "Vedere bando",
-      "scadenza": "2026-09-15",
-      "descrizione": "BANDO PER LA PARTECIPAZIONE ALLE INIZIATIVE DI PROMOZIONE TURISTICA SUI ...",
-      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/cultura-turismo-sport/imprese-turistiche/bando-partecipazione-iniziative-promozione-turistica-mercati-italiano-ed-estero-primo-semestre-2027-RLP12026054984",
+      "scadenza": "2026-10-09",
+      "descrizione": "Bando Export su Misura 2026: Servizi a supporto delle imprese per l’acce...",
+      "link": "https://www.unioncamerelombardia.it/bandi-e-incentivi-alle-imprese/dettaglio-bando/bando-export-su-misura-2026",
       "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
       "fonte": "AUTO",
-      "status": "IN SCADENZA"
+      "status": "APERTO"
+    },
+    {
+      "titolo": "Offerta formativa di corsi annuali di Istruzione e Formazione Profession...",
+      "ente": "Regione Lombardia Bandi",
+      "regione": "Regione Lombardia",
+      "settore": "Formazione 4.0",
+      "contributo": "Vedere bando",
+      "intensita": "Vedere bando",
+      "scadenza": "2026-10-30",
+      "descrizione": "Offerta formativa di corsi annuali di Istruzione e Formazione Profession...",
+      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/istruzione-formazione-lavoro/formazione-professionale/offerta-formativa-corsi-annuali-istruzione-formazione-professionale-l-accesso-esame-stato-annualit-2026-27-RLW12026055346",
+      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
+      "fonte": "AUTO",
+      "status": "APERTO"
     },
     {
       "titolo": "Attività Produttive/Imprese",
