@@ -1,8 +1,8 @@
 {
-  "aggiornato": "2026-09-07",
-  "totale": 18,
-  "aperti": 15,
-  "in_scadenza": 1,
+  "aggiornato": "2026-09-14",
+  "totale": 17,
+  "aperti": 13,
+  "in_scadenza": 2,
   "verificati": 13,
   "bandi": [
     {
@@ -199,21 +199,7 @@
       "link": "https://www.unioncamerelombardia.it/bandi-e-incentivi-alle-imprese/dettaglio-bando/bando-export-su-misura-2026",
       "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
       "fonte": "AUTO",
-      "status": "APERTO"
-    },
-    {
-      "titolo": "Offerta formativa di corsi annuali di Istruzione e Formazione Profession...",
-      "ente": "Regione Lombardia Bandi",
-      "regione": "Regione Lombardia",
-      "settore": "Formazione 4.0",
-      "contributo": "Vedere bando",
-      "intensita": "Vedere bando",
-      "scadenza": "2026-10-30",
-      "descrizione": "Offerta formativa di corsi annuali di Istruzione e Formazione Profession...",
-      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/istruzione-formazione-lavoro/formazione-professionale/offerta-formativa-corsi-annuali-istruzione-formazione-professionale-l-accesso-esame-stato-annualit-2026-27-RLW12026055346",
-      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
-      "fonte": "AUTO",
-      "status": "APERTO"
+      "status": "IN SCADENZA"
     },
     {
       "titolo": "Attività Produttive/Imprese",
