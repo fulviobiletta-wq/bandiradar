@@ -1,10 +1,9 @@
-Ultimo aggiornamento: 14/09/2026 13:46
-Bandi totali: 17
+Ultimo aggiornamento: 21/09/2026 13:46
+Bandi totali: 16
 Verificati manualmente: 13
-Trovati automaticamente: 4
+Trovati automaticamente: 3
 Aperti: 13
-In scadenza (<=30gg): 2
+In scadenza (<=30gg): 1
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
-  - SPIDY — Speed up your business 2026 (scade 2026-09-30, 16gg)
-  - Bando Export su Misura 2026: Servizi a supporto delle imprese per l’acce... (scade 2026-10-09, 25gg)
+  - SPIDY — Speed up your business 2026 (scade 2026-09-30, 9gg)

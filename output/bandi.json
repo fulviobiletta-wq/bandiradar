@@ -1,8 +1,8 @@
 {
-  "aggiornato": "2026-09-14",
-  "totale": 17,
+  "aggiornato": "2026-09-21",
+  "totale": 16,
   "aperti": 13,
-  "in_scadenza": 2,
+  "in_scadenza": 1,
   "verificati": 13,
   "bandi": [
     {
@@ -186,20 +186,6 @@
       "note": "Rifinanziata con 650M euro per 2026-2027. Sportello continuo.",
       "fonte": "VERIFICATO",
       "status": "APERTO"
-    },
-    {
-      "titolo": "Bando Export su Misura 2026: Servizi a supporto delle imprese per l’acce...",
-      "ente": "Regione Lombardia Bandi",
-      "regione": "Regione Lombardia",
-      "settore": "E-commerce & Export",
-      "contributo": "Vedere bando",
-      "intensita": "Vedere bando",
-      "scadenza": "2026-10-09",
-      "descrizione": "Bando Export su Misura 2026: Servizi a supporto delle imprese per l’acce...",
-      "link": "https://www.unioncamerelombardia.it/bandi-e-incentivi-alle-imprese/dettaglio-bando/bando-export-su-misura-2026",
-      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
-      "fonte": "AUTO",
-      "status": "IN SCADENZA"
     },
     {
       "titolo": "Attività Produttive/Imprese",
