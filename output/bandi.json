@@ -1,38 +1,10 @@
 {
-  "aggiornato": "2026-09-28",
-  "totale": 16,
-  "aperti": 13,
-  "in_scadenza": 1,
-  "verificati": 13,
+  "aggiornato": "2026-10-05",
+  "totale": 15,
+  "aperti": 14,
+  "in_scadenza": 0,
+  "verificati": 11,
   "bandi": [
-    {
-      "titolo": "Credito d'Imposta Beni Strumentali 4.0",
-      "ente": "MIMIT / Agenzia delle Entrate",
-      "regione": "Nazionale",
-      "settore": "Digitalizzazione / Transizione 4.0",
-      "contributo": "Credito 20-40% investimento",
-      "intensita": "20% fino 2,5M / 10% fino 10M / 5% fino 20M euro",
-      "scadenza": "2026-07-31",
-      "descrizione": "Credito d'imposta per beni strumentali 4.0 completati entro 30/06/2026.",
-      "link": "https://www.mimit.gov.it/it/incentivi/credito-dimposta-per-investimenti-in-beni-strumentali",
-      "note": "Solo chi ha versato acconto >=20% entro 31/12/2025.",
-      "fonte": "VERIFICATO",
-      "status": "CHIUSO"
-    },
-    {
-      "titolo": "Voucher Fiere e Mostre CCIAA Toscana NW 2026",
-      "ente": "Camera di Commercio Toscana Nord-Ovest",
-      "regione": "Regione Toscana",
-      "settore": "E-commerce & Export",
-      "contributo": "Fino a 5.000 euro (extra UE) / 3.000 euro (Italia-UE)",
-      "intensita": "50% fondo perduto",
-      "scadenza": "2026-07-31",
-      "descrizione": "Partecipazione a fiere internazionali come espositore. Dotazione 400.000 euro.",
-      "link": "https://tno.camcom.it/bandi/2026/bando-contributi-la-partecipazione-fiere-e-mostre-italia-e-allestero-anno-2026",
-      "note": "Solo province Lucca, Massa-Carrara e Pisa. Domanda via ReStart Infocamere.",
-      "fonte": "VERIFICATO",
-      "status": "CHIUSO"
-    },
     {
       "titolo": "SPIDY — Speed up your business 2026",
       "ente": "CCIAA Milano Monza Brianza Lodi",
@@ -45,7 +17,7 @@
       "link": "https://www.milomb.camcom.it/bandi-e-contributi",
       "note": "Solo province Milano, Monza Brianza e Lodi.",
       "fonte": "VERIFICATO",
-      "status": "IN SCADENZA"
+      "status": "CHIUSO"
     },
     {
       "titolo": "EUIPO Fondo PMI 2026 — Voucher Brevetti",
@@ -225,6 +197,20 @@
       "scadenza": "2026-12-31",
       "descrizione": "Ricerca e Innovazione",
       "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/ricerca-innovazione",
+      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
+      "fonte": "AUTO",
+      "status": "APERTO"
+    },
+    {
+      "titolo": "Contributo abbattimento interessi sull’iniziativa \"Finanziamento per il ...",
+      "ente": "Regione Lombardia Bandi",
+      "regione": "Regione Lombardia",
+      "settore": "Digitalizzazione / Transizione 4.0",
+      "contributo": "Vedere bando",
+      "intensita": "Vedere bando",
+      "scadenza": "2027-04-30",
+      "descrizione": "Contributo abbattimento interessi sull’iniziativa \"Finanziamento per il ...",
+      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/dettaglio/istruzione-formazione-lavoro/formazione-professionale/contributo-abbattimento-interessi-iniziativa-finanziamento-sistema-istruzione-formazione-professionale-promossa-finlombarda-s-p-RLW12025050865",
       "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
       "fonte": "AUTO",
       "status": "APERTO"

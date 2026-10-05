@@ -1,9 +1,8 @@
-Ultimo aggiornamento: 28/09/2026 15:09
-Bandi totali: 16
-Verificati manualmente: 13
-Trovati automaticamente: 3
-Aperti: 13
-In scadenza (<=30gg): 1
+Ultimo aggiornamento: 05/10/2026 15:43
+Bandi totali: 15
+Verificati manualmente: 11
+Trovati automaticamente: 4
+Aperti: 14
+In scadenza (<=30gg): 0
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
-  - SPIDY — Speed up your business 2026 (scade 2026-09-30, 2gg)
