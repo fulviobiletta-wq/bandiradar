@@ -1,11 +1,8 @@
-Ultimo aggiornamento: 26/10/2026 14:02
-Bandi totali: 17
+Ultimo aggiornamento: 02/11/2026 16:55
+Bandi totali: 14
 Verificati manualmente: 11
-Trovati automaticamente: 6
+Trovati automaticamente: 3
 Aperti: 13
-In scadenza (<=30gg): 3
+In scadenza (<=30gg): 0
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
-  - FORMAZIONE NEGLI AMBITI PROFESSIONALI DEL RESTAURO DEI BENI CULTURALI E ... (scade 2026-10-29, 3gg)
-  - INFORMAZIONE E ASSISTENZA ALLE VITTIME: IL DIRITTO DI COMPRENDERE E DI E... (scade 2026-11-13, 18gg)
-  - Contributo regionale per la redazione o revisione dei Piani comunali di ... (scade 2026-11-23, 28gg)
