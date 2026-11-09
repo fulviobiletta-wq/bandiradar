@@ -1,8 +1,9 @@
-Ultimo aggiornamento: 02/11/2026 16:55
-Bandi totali: 14
+Ultimo aggiornamento: 09/11/2026 17:18
+Bandi totali: 11
 Verificati manualmente: 11
-Trovati automaticamente: 3
-Aperti: 13
-In scadenza (<=30gg): 0
+Trovati automaticamente: 0
+Aperti: 9
+In scadenza (<=30gg): 1
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
+  - EUIPO Fondo PMI 2026 — Voucher Brevetti (scade 2026-12-04, 25gg)

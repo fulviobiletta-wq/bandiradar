@@ -1,8 +1,8 @@
 {
-  "aggiornato": "2026-11-02",
-  "totale": 14,
-  "aperti": 13,
-  "in_scadenza": 0,
+  "aggiornato": "2026-11-09",
+  "totale": 11,
+  "aperti": 9,
+  "in_scadenza": 1,
   "verificati": 11,
   "bandi": [
     {
@@ -31,7 +31,7 @@
       "link": "https://www.euipo.europa.eu/it/sme-corner/sme-fund/2026",
       "note": "Voucher 2 (Marchi): CHIUSO per esaurimento, riapertura attesa Q4 2026. Voucher 3 (Brevetti): APERTO.",
       "fonte": "VERIFICATO",
-      "status": "APERTO"
+      "status": "IN SCADENZA"
     },
     {
       "titolo": "Voucher Cloud e Cybersecurity 2026",
@@ -157,48 +157,6 @@
       "link": "https://www.mimit.gov.it/it/incentivi/agevolazioni-per-gli-investimenti-delle-pmi-in-beni-strumentali-nuova-sabatini",
       "note": "Rifinanziata con 650M euro per 2026-2027. Sportello continuo.",
       "fonte": "VERIFICATO",
-      "status": "APERTO"
-    },
-    {
-      "titolo": "Attività Produttive/Imprese",
-      "ente": "Regione Lombardia Bandi",
-      "regione": "Regione Lombardia",
-      "settore": "Cybersecurity",
-      "contributo": "Vedere bando",
-      "intensita": "Vedere bando",
-      "scadenza": "2026-12-31",
-      "descrizione": "Attività Produttive/Imprese",
-      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/attivita-produttive-imprese",
-      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
-      "fonte": "AUTO",
-      "status": "APERTO"
-    },
-    {
-      "titolo": "Istruzione, Formazione e Lavoro",
-      "ente": "Regione Lombardia Bandi",
-      "regione": "Regione Lombardia",
-      "settore": "Cybersecurity",
-      "contributo": "Vedere bando",
-      "intensita": "Vedere bando",
-      "scadenza": "2026-12-31",
-      "descrizione": "Istruzione, Formazione e Lavoro",
-      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/istruzione-formazione-lavoro",
-      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
-      "fonte": "AUTO",
-      "status": "APERTO"
-    },
-    {
-      "titolo": "Ricerca e Innovazione",
-      "ente": "Regione Lombardia Bandi",
-      "regione": "Regione Lombardia",
-      "settore": "Cybersecurity",
-      "contributo": "Vedere bando",
-      "intensita": "Vedere bando",
-      "scadenza": "2026-12-31",
-      "descrizione": "Ricerca e Innovazione",
-      "link": "https://www.bandi.regione.lombardia.it/servizi/servizio/bandi/ricerca-innovazione",
-      "note": "Trovato automaticamente su Regione Lombardia Bandi — verificare prima dell'uso",
-      "fonte": "AUTO",
       "status": "APERTO"
     }
   ]
