@@ -1,9 +1,12 @@
-Ultimo aggiornamento: 09/11/2026 17:18
-Bandi totali: 11
+Ultimo aggiornamento: 16/11/2026 16:52
+Bandi totali: 18
 Verificati manualmente: 11
-Trovati automaticamente: 0
-Aperti: 9
-In scadenza (<=30gg): 1
+Trovati automaticamente: 7
+Aperti: 13
+In scadenza (<=30gg): 4
 
 BANDI IN SCADENZA ENTRO 30 GIORNI:
-  - EUIPO Fondo PMI 2026 — Voucher Brevetti (scade 2026-12-04, 25gg)
+  - EUIPO Fondo PMI 2026 — Voucher Brevetti (scade 2026-12-04, 18gg)
+  - GAME ON - Sport e formazione nei percorsi IeFP - a.f. 2026/2027 (scade 2026-11-27, 11gg)
+  - BANDO PER LA PARTECIPAZIONE ALLE INIZIATIVE DI PROMOZIONE TURISTICA SUI ... (scade 2026-12-04, 18gg)
+  - Corso di formazione per Aspirante Guida di Secondo Livello – anno 2027 (scade 2026-12-10, 24gg)
